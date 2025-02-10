@@ -24,6 +24,11 @@ public class Funcionario {
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
+    @ManyToOne
+    @JoinColumn(name = "alocadoEm_id")
+    private Departamento alocadoEm;
+
+
     public Funcionario(){
 
     }

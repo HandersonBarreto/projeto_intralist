@@ -2,6 +2,9 @@ package com.unigoais.intralist.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_departamento")
 public class Departamento {
@@ -15,6 +18,13 @@ public class Departamento {
     private String descricao;
     private String responsavel;
     private String localizacao;
+
+    @OneToMany(mappedBy = "alocadoEm")
+    private List<Funcionario> funcionarios = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "pertenceA_id")
+    private Unidade pertenceA;
 
     public Departamento(){
 
@@ -66,5 +76,9 @@ public class Departamento {
 
     public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
     }
 }
