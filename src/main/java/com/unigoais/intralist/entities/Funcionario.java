@@ -2,6 +2,9 @@ package com.unigoais.intralist.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_funcionario")
 public class Funcionario {
@@ -28,6 +31,12 @@ public class Funcionario {
     @JoinColumn(name = "alocadoEm_id")
     private Departamento alocadoEm;
 
+
+    @ManyToMany
+    @JoinTable(name = "tb_funcionario_equipe",
+            joinColumns = @JoinColumn(name = "funcionario_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipe_id"))
+    private Set<Equipe> equipes = new HashSet<>();
 
     public Funcionario(){
 
@@ -95,6 +104,14 @@ public class Funcionario {
 
     public StatusFuncionario getStatus() {
         return status;
+    }
+
+    public Departamento getAlocadoEm() {
+        return alocadoEm;
+    }
+
+    public Set<Equipe> getEquipes() {
+        return equipes;
     }
 
     public void setStatus(StatusFuncionario status) {
