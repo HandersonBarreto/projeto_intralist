@@ -9,7 +9,7 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-    private String logadouro;
+    private String logradouro;
 
     @Column(columnDefinition = "TEXT")
     private String complemento;
@@ -30,7 +30,7 @@ public class Endereco {
 
     public Endereco(Long id, String logadouro, String complemento, Integer numero, String bairro, String cep, String cidade, Uf uf) {
         this.id = id;
-        this.logadouro = logadouro;
+        this.logradouro = logadouro;
         this.complemento = complemento;
         this.numero = numero;
         this.bairro = bairro;
@@ -48,11 +48,11 @@ public class Endereco {
     }
 
     public String getLogadouro() {
-        return logadouro;
+        return logradouro;
     }
 
     public void setLogadouro(String logadouro) {
-        this.logadouro = logadouro;
+        this.logradouro = logadouro;
     }
 
     public String getComplemento() {

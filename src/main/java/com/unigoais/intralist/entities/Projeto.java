@@ -1,19 +1,45 @@
 package com.unigoais.intralist.entities;
 
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "tb_projeto")
 public class Projeto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Column(columnDefinition = "TEXT")
     private String descricao;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant dataCriacao;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant dataInicio;
     private LocalDate dataFimPrevisto;
     private Instant dataFimReal;
     private String meta;
+
+    @Enumerated(EnumType.STRING)
     private NivelRisco risco;
+
+    @Enumerated(EnumType.STRING)
     private StatusProjeto statusProjeto;
+
+    @ManyToOne
+    @JoinColumn(name = "equipe_id")
+    private Equipe equipe;
+
+    @OneToMany(mappedBy = "projeto")
+    private List<Tarefa> tarefas = new ArrayList<>();
 
     public Projeto(){
 
@@ -110,6 +136,14 @@ public class Projeto {
 
     public void setStatusProjeto(StatusProjeto statusProjeto) {
         this.statusProjeto = statusProjeto;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public List<Tarefa> getTarefas() {
+        return tarefas;
     }
 }
 

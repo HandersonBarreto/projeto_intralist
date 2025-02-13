@@ -19,7 +19,7 @@ public class Departamento {
     private String responsavel;
     private String localizacao;
 
-    @OneToMany(mappedBy = "alocadoEm")
+    @OneToMany(mappedBy = "departamento")
     private List<Funcionario> funcionarios = new ArrayList<>();
 
     @ManyToOne

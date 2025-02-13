@@ -21,15 +21,17 @@ public class Funcionario {
     @Column(unique = true)
     private String cpf;
     private String telefone;
-    private StatusFuncionario status;
+
+    @Enumerated(EnumType.STRING)
+    private StatusFuncionario statusFuncionario;
     private String cargo;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "alocadoEm_id")
-    private Departamento alocadoEm;
+    @JoinColumn(name = "departamento_id")
+    private Departamento departamento;
 
 
     @ManyToMany
@@ -42,14 +44,14 @@ public class Funcionario {
 
     }
 
-    public Funcionario(Long id, String nome, String fotoUrl, String email, String cpf, String telefone, StatusFuncionario status, String cargo, String descricao) {
+    public Funcionario(Long id, String nome, String fotoUrl, String email, String cpf, String telefone, StatusFuncionario statusFuncionario, String cargo, String descricao) {
         this.id = id;
         this.nome = nome;
         this.fotoUrl = fotoUrl;
         this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
-        this.status = status;
+        this.statusFuncionario = statusFuncionario;
         this.cargo = cargo;
         this.descricao = descricao;
     }
@@ -102,20 +104,20 @@ public class Funcionario {
         this.telefone = telefone;
     }
 
-    public StatusFuncionario getStatus() {
-        return status;
+    public StatusFuncionario getStatusFuncionario() {
+        return statusFuncionario;
     }
 
-    public Departamento getAlocadoEm() {
-        return alocadoEm;
+    public Departamento getDepartamento() {
+        return departamento;
     }
 
     public Set<Equipe> getEquipes() {
         return equipes;
     }
 
-    public void setStatus(StatusFuncionario status) {
-        this.status = status;
+    public void setStatusFuncionario(StatusFuncionario statusFuncionario) {
+        this.statusFuncionario = statusFuncionario;
     }
 
     public String getCargo() {

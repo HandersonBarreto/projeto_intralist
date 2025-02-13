@@ -3,7 +3,9 @@ package com.unigoais.intralist.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,8 +23,11 @@ public class Equipe {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant dataCriacao;
 
-    @ManyToMany(mappedBy = "equipes")
+    @ManyToMany(mappedBy = "equipes", cascade = CascadeType.ALL)
     private Set<Funcionario> funcionarios = new HashSet<>();
+
+    @OneToMany(mappedBy = "equipe")
+    private List<Projeto>projetos = new ArrayList<>();
 
     public Equipe(){
 
@@ -69,5 +74,9 @@ public class Equipe {
 
     public Set<Funcionario> getFuncionarios() {
         return funcionarios;
+    }
+
+    public List<Projeto> getProjetos() {
+        return projetos;
     }
 }
