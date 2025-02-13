@@ -33,8 +33,7 @@ O sistema foi desenvolvido utilizando a arquitetura **MVC (Model-View-Controller
 
 ## 🔗 Modelo de Dominio
 
-![Class Diagram0](https://github.com/user-attachments/assets/1e694f76-c52a-4307-a9c6-527bfe49f953)
-
+![Class Diagram0](https://github.com/user-attachments/assets/9dfc4377-25e2-4bc8-8428-ae70bd51df3f)
 
 
 ## 🚀 Como Executar o Projeto
