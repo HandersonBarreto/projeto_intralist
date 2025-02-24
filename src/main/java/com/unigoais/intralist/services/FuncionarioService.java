@@ -31,4 +31,24 @@ public class FuncionarioService {
         Page<Funcionario> result = repository.findAll(pageable);
         return result.map(x -> new FuncionarioDTO(x));
     }
+
+    @Transactional
+    public FuncionarioDTO insert(FuncionarioDTO dto){
+
+        Funcionario entity = new Funcionario();
+        entity.setNome(dto.getNome());
+        entity.setFotoUrl(dto.getFotoUrl());
+        entity.setEmail(dto.getEmail());
+        entity.setCpf(dto.getCpf());
+        entity.setTelefone(dto.getTelefone());
+        entity.setStatusFuncionario(dto.getStatusFuncionario());
+        entity.setCargo(dto.getCargo());
+        entity.setDescricao(dto.getDescricao());
+
+        entity = repository.save(entity);
+        return new FuncionarioDTO(entity);
+
+
+
+    }
 }

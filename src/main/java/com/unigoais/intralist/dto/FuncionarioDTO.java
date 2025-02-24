@@ -9,20 +9,14 @@ public class FuncionarioDTO {
     private String nome;
     private String fotoUrl;
     private String email;
+    private String cpf;
     private String telefone;
     private StatusFuncionario statusFuncionario;
     private String cargo;
     private String descricao;
 
-    public FuncionarioDTO(Long id, String nome, String fotoUrl, String email, String telefone, StatusFuncionario statusFuncionario, String cargo, String descricao) {
-        this.id = id;
-        this.nome = nome;
-        this.fotoUrl = fotoUrl;
-        this.email = email;
-        this.telefone = telefone;
-        this.statusFuncionario = statusFuncionario;
-        this.cargo = cargo;
-        this.descricao = descricao;
+    public FuncionarioDTO(){
+
     }
 
     public FuncionarioDTO(Funcionario entity) {
@@ -30,6 +24,7 @@ public class FuncionarioDTO {
         nome = entity.getNome();
         fotoUrl = entity.getFotoUrl();
         email = entity.getEmail();
+        cpf = entity.getCpf();
         telefone = entity.getTelefone();
         statusFuncionario = entity.getStatusFuncionario();
         cargo = entity.getCargo();
@@ -46,6 +41,10 @@ public class FuncionarioDTO {
 
     public StatusFuncionario getStatusFuncionario() {
         return statusFuncionario;
+    }
+
+    public String getCpf() {
+        return cpf;
     }
 
     public String getTelefone() {
