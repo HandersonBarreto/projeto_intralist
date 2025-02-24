@@ -26,11 +26,9 @@ O **IntraList** é um sistema empresarial desenvolvido como projeto de conclusã
 
 ## Arquitetura do Sistema
 
-O sistema foi desenvolvido utilizando a arquitetura **MVC (Model-View-Controller)**, que separa claramente as responsabilidades em:
-- **Model:** Representação das entidades do sistema, como `Funcionario`, `Projeto` e `Tarefa`.
-- **View:** Não aplicável diretamente, pois o projeto atual foca no back-end e APIs.
-- **Controller:** Endpoints para comunicação entre cliente e servidor, gerenciando as requisições HTTP.
+O sistema foi desenvolvido utilizando a arquitetura **Camadas**, que separa claramente as responsabilidades em:
 
+![img.png](img.png)
 ## Modelo de Dominio
 
 ![Class Diagram0](https://github.com/user-attachments/assets/1e694f76-c52a-4307-a9c6-527bfe49f953)
