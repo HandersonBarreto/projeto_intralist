@@ -48,6 +48,11 @@ public class FuncionarioService {
         return new FuncionarioDTO(entity);
     }
 
+    @Transactional
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
     private void copyDtoToEntity(FuncionarioDTO dto, Funcionario entity) {
         entity.setNome(dto.getNome());
         entity.setFotoUrl(dto.getFotoUrl());
