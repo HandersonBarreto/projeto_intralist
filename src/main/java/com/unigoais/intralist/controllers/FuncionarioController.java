@@ -5,8 +5,11 @@ import com.unigoais.intralist.services.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,18 +20,23 @@ public class FuncionarioController {
     private FuncionarioService service;
 
     @GetMapping(value = "/{id}")
-    public FuncionarioDTO findById(@PathVariable Long id){
-        return service.findById(id);
+    public ResponseEntity<FuncionarioDTO> findById(@PathVariable Long id){
+        FuncionarioDTO dto = service.findById(id);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping()
-    public Page<FuncionarioDTO> findAll(Pageable pageable){
-        return service.findAll(pageable);
+    public ResponseEntity <Page<FuncionarioDTO>> findAll(Pageable pageable){
+        Page<FuncionarioDTO> dto = service.findAll(pageable);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public FuncionarioDTO insert (@RequestBody FuncionarioDTO dto){
-        return service.insert(dto);
+    public ResponseEntity <FuncionarioDTO> insert (@RequestBody FuncionarioDTO dto){
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 
 }
