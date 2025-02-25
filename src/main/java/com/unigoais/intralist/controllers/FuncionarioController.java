@@ -39,4 +39,10 @@ public class FuncionarioController {
         return ResponseEntity.created(uri).body(dto);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<FuncionarioDTO> update(@PathVariable Long id, @RequestBody FuncionarioDTO dto){
+        dto = service.update(id, dto);
+        return ResponseEntity.ok(dto);
+    }
+
 }

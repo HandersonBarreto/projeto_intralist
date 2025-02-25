@@ -34,8 +34,21 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioDTO insert(FuncionarioDTO dto){
-
         Funcionario entity = new Funcionario();
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new FuncionarioDTO(entity);
+    }
+
+    @Transactional
+    public FuncionarioDTO update(Long id,FuncionarioDTO dto){
+        Funcionario entity = repository.getReferenceById(id);
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new FuncionarioDTO(entity);
+    }
+
+    private void copyDtoToEntity(FuncionarioDTO dto, Funcionario entity) {
         entity.setNome(dto.getNome());
         entity.setFotoUrl(dto.getFotoUrl());
         entity.setEmail(dto.getEmail());
@@ -44,11 +57,5 @@ public class FuncionarioService {
         entity.setStatusFuncionario(dto.getStatusFuncionario());
         entity.setCargo(dto.getCargo());
         entity.setDescricao(dto.getDescricao());
-
-        entity = repository.save(entity);
-        return new FuncionarioDTO(entity);
-
-
-
     }
 }
