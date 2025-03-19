@@ -2,6 +2,8 @@ package com.unigoais.intralist.controllers;
 
 import com.unigoais.intralist.dto.FuncionarioDTO;
 import com.unigoais.intralist.services.FuncionarioService;
+import com.unigoais.intralist.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/funcionarios")
+@CrossOrigin(origins = "http://localhost:63342")
 public class FuncionarioController {
 
     @Autowired
@@ -41,8 +43,13 @@ public class FuncionarioController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<FuncionarioDTO> update(@PathVariable Long id, @RequestBody FuncionarioDTO dto){
-        dto = service.update(id, dto);
-        return ResponseEntity.ok(dto);
+        try {
+            dto = service.update(id, dto);
+            return ResponseEntity.ok(dto);
+        }
+        catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
     }
 
     @DeleteMapping(value = "/{id}")

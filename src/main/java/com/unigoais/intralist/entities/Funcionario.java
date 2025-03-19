@@ -24,6 +24,7 @@ public class Funcionario {
 
     @Enumerated(EnumType.STRING)
     private StatusFuncionario statusFuncionario;
+
     private String cargo;
 
     @Column(columnDefinition = "TEXT")

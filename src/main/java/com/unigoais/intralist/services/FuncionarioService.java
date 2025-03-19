@@ -1,15 +1,18 @@
 package com.unigoais.intralist.services;
 
+import com.unigoais.intralist.controllers.handler.DatabaseException;
 import com.unigoais.intralist.dto.FuncionarioDTO;
 import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.repositories.FuncionarioRepository;
+import com.unigoais.intralist.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +24,8 @@ public class FuncionarioService {
     @Transactional(readOnly = true)
     public FuncionarioDTO findById(Long id){
         Optional<Funcionario> result = repository.findById(id);
-        Funcionario funcionario = result.get();
+        Funcionario funcionario = result.orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado"));
         FuncionarioDTO dto = new FuncionarioDTO(funcionario);
         return dto;
     }
@@ -42,15 +46,28 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioDTO update(Long id,FuncionarioDTO dto){
-        Funcionario entity = repository.getReferenceById(id);
-        copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-        return new FuncionarioDTO(entity);
+        try {
+            Funcionario entity = repository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new FuncionarioDTO(entity);
+        }
+        catch (ResourceNotFoundException e){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
     }
 
-    @Transactional
-    public void delete(Long id){
-        repository.deleteById(id);
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        try {
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
     }
 
     private void copyDtoToEntity(FuncionarioDTO dto, Funcionario entity) {
