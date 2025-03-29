@@ -46,6 +46,11 @@ public class TarefaService {
         return new TarefaDTO(entity);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
     private void copyDtoToEntity(TarefaDTO dto, Tarefa entity) {
         entity.setNome(dto.getNome());
         entity.setDescricao(dto.getDescricao());

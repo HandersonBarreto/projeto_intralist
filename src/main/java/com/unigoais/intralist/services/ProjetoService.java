@@ -14,7 +14,6 @@ import java.util.Optional;
 @Service
 public class ProjetoService {
 
-
     @Autowired
     private ProjetoRepository repository;
 
@@ -46,6 +45,11 @@ public class ProjetoService {
         copyDtoTOEntity(dto, entity);
         entity = repository.save(entity);
         return new ProjetoDTO(entity);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     private void copyDtoTOEntity(ProjetoDTO dto, Projeto entity) {
