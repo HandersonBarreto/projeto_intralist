@@ -31,9 +31,22 @@ public class TarefaService {
         Page<Tarefa> ListTarefa = repository.findAll(pageable);
         return ListTarefa.map(x -> new TarefaDTO(x));
     }
-
+    @Transactional
     public TarefaDTO insert(TarefaDTO dto) {
         Tarefa entity = new Tarefa();
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new TarefaDTO(entity);
+    }
+    @Transactional
+    public TarefaDTO update(Long id, TarefaDTO dto) {
+        Tarefa entity = repository.getReferenceById(id);
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new TarefaDTO(entity);
+    }
+
+    private void copyDtoToEntity(TarefaDTO dto, Tarefa entity) {
         entity.setNome(dto.getNome());
         entity.setDescricao(dto.getDescricao());
         entity.setDataCriacao(dto.getDataAtualizacao());
@@ -42,7 +55,5 @@ public class TarefaService {
         entity.setFimReal(dto.getFimReal());
         entity.setDataAtualizacao(dto.getDataAtualizacao());
         entity.setStatusTarefa(dto.getStatusTarefa());
-        entity = repository.save(entity);
-        return new TarefaDTO(entity);
     }
 }

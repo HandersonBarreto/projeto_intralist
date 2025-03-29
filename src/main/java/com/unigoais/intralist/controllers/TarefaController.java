@@ -39,4 +39,10 @@ public class TarefaController {
         return ResponseEntity.created(uri).body(dto);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TarefaDTO> update(@PathVariable Long id, @RequestBody TarefaDTO dto) {
+        dto = service.update(id, dto);
+        return ResponseEntity.ok(dto);
+    }
+
 }

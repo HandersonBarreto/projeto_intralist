@@ -35,6 +35,20 @@ public class ProjetoService {
     @Transactional
     public ProjetoDTO insert(ProjetoDTO dto) {
         Projeto entity = new Projeto();
+        copyDtoTOEntity(dto, entity);
+        entity = repository.save(entity);
+        return new ProjetoDTO(entity);
+    }
+
+    @Transactional
+    public ProjetoDTO update(Long id, ProjetoDTO dto) {
+        Projeto entity = repository.getReferenceById(id);
+        copyDtoTOEntity(dto, entity);
+        entity = repository.save(entity);
+        return new ProjetoDTO(entity);
+    }
+
+    private void copyDtoTOEntity(ProjetoDTO dto, Projeto entity) {
         entity.setNome(dto.getNome());
         entity.setDescricao(dto.getDescricao());
         entity.setDataCriacao(dto.getDataCriacao());
@@ -44,7 +58,5 @@ public class ProjetoService {
         entity.setMeta(dto.getMeta());
         entity.setRisco(dto.getRisco());
         entity.setStatusProjeto(dto.getStatusProjeto());
-        entity = repository.save(entity);
-        return new ProjetoDTO(entity);
     }
 }
