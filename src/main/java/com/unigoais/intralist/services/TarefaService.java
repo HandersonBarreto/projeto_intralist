@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class TarefaService {
     @Autowired
     private TarefaRepository repository;
 
+    @Transactional(readOnly = true)
     public TarefaDTO findById(Long id) {
         Optional<Tarefa> result = repository.findById(id);
         Tarefa tarefa = result.get();
@@ -24,8 +26,23 @@ public class TarefaService {
         return dto;
     }
 
+    @Transactional(readOnly = true)
     public Page<TarefaDTO> findAll(Pageable pageable) {
         Page<Tarefa> ListTarefa = repository.findAll(pageable);
         return ListTarefa.map(x -> new TarefaDTO(x));
+    }
+
+    public TarefaDTO insert(TarefaDTO dto) {
+        Tarefa entity = new Tarefa();
+        entity.setNome(dto.getNome());
+        entity.setDescricao(dto.getDescricao());
+        entity.setDataCriacao(dto.getDataAtualizacao());
+        entity.setDataInicio(dto.getDataInicio());
+        entity.setFimPrevisto(dto.getFimPrevisto());
+        entity.setFimReal(dto.getFimReal());
+        entity.setDataAtualizacao(dto.getDataAtualizacao());
+        entity.setStatusTarefa(dto.getStatusTarefa());
+        entity = repository.save(entity);
+        return new TarefaDTO(entity);
     }
 }

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +18,7 @@ public class ProjetoService {
     @Autowired
     private ProjetoRepository repository;
 
+    @Transactional(readOnly = true)
     public ProjetoDTO findById(Long id) {
         Optional<Projeto> result = repository.findById(id);
         Projeto projeto = result.get();
@@ -25,8 +26,25 @@ public class ProjetoService {
         return dto;
     }
 
+    @Transactional(readOnly = true)
     public Page<ProjetoDTO> findAll(Pageable pageable) {
         Page<Projeto> listProjeto = repository.findAll(pageable);
         return listProjeto.map(x -> new ProjetoDTO(x));
+    }
+
+    @Transactional
+    public ProjetoDTO insert(ProjetoDTO dto) {
+        Projeto entity = new Projeto();
+        entity.setNome(dto.getNome());
+        entity.setDescricao(dto.getDescricao());
+        entity.setDataCriacao(dto.getDataCriacao());
+        entity.setDataInicio(dto.getDataInicio());
+        entity.setDataFimPrevisto(dto.getDataFimPrevisto());
+        entity.setDataFimReal(dto.getDataFimReal());
+        entity.setMeta(dto.getMeta());
+        entity.setRisco(dto.getRisco());
+        entity.setStatusProjeto(dto.getStatusProjeto());
+        entity = repository.save(entity);
+        return new ProjetoDTO(entity);
     }
 }

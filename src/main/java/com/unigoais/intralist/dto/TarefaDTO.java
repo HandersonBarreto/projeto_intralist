@@ -1,11 +1,7 @@
 package com.unigoais.intralist.dto;
 
-import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.entities.StatusTarefa;
 import com.unigoais.intralist.entities.Tarefa;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 import java.time.Instant;
 import java.time.LocalDate;

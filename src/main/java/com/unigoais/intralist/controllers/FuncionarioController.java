@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/a")
+@RequestMapping(value = "/funcionarios")
 @CrossOrigin(origins = "http://localhost:63342")
 public class FuncionarioController {
 
