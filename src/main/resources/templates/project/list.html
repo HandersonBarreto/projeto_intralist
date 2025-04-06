@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listar Projetos | Intralist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        :root {
+            --primary-color: #5041bc;
+            --primary-light: #7a6de0;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            color: #333;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background-color: white;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 100%;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .badge-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-meta {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .project-meta i {
+            width: 18px;
+            text-align: center;
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+
+        .project-desc {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.9rem;
+        }
+
+        .toggle-desc {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .toggle-desc:hover {
+            text-decoration: underline;
+            color: var(--primary-light);
+        }
+
+        .btn-action {
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .search-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+        }
+
+        .filter-select {
+            border-radius: 6px;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .page-link {
+            color: var(--primary-color);
+        }
+
+        .progress-thin {
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+        }
+
+        .search-box input {
+            padding-left: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .filter-select {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search-box {
+                margin-bottom: 15px;
+            }
+
+            .card {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Acessibilidade - foco visível */
+        a:focus, button:focus, input:focus, select:focus {
+            outline: 2px solid var(--primary-light);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid px-0">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html" aria-label="Intralist - Página Inicial">Intralist</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" aria-haspopup="true">
+                            <i class="fa-solid fa-plus me-1"></i> Cadastro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../employee/CadastroFuncionario.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
+                            <li><a class="dropdown-item" href="register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Atividade</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" aria-current="page" aria-haspopup="true">
+                            <i class="fa-solid fa-list me-1"></i> Listar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
+                            <li><a class="dropdown-item" href="/listarProjeto.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Atividades</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" aria-label="Dashboard">
+                            <i class="fa-solid fa-chart-line me-1"></i> Dashboard
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center ms-auto">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            <div class="me-2 d-none d-sm-block text-end">
+                                <span class="small text-muted d-block">Bem-vindo,</span>
+                                <span class="fw-semibold">Nome do Usuário</span>
+                            </div>
+                            <div class="avatar">
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h4 mb-0">
+                <i class="fas fa-project-diagram me-2 text-primary"></i>Projetos
+            </h1>
+            <a href="register.html" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus me-1"></i> Novo Projeto
+            </a>
+        </div>
+
+        <div class="container my-4">
+            <div class="d-flex justify-content-between mb-3">
+                <input class="form-control w-50" id="searchProjeto" type="search" placeholder="Pesquisar Projeto">
+                <div class="d-flex gap-2">
+                    <select id="filtroOrdenacao" class="form-select">
+                        <option value="nome,asc">Nome (A-Z)</option>
+                        <option value="nome,desc">Nome (Z-A)</option>
+                        <option value="dataInicio,asc">Data Início (Antigos)</option>
+                        <option value="dataInicio,desc">Data Início (Recentes)</option>
+                    </select>
+                    <select id="filtroStatus" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="NAO_INICIADA">Não iniciada</option>
+                        <option value="EM_ANDAMENTO">Em andamento</option>
+                        <option value="CONCLUIDO">Concluído</option>
+                        <option value="CANCELADO">Cancelado</option>
+                        <option value="PENDENTE_APROVACAO">Pendente de Aprovação</option>
+                        <option value="REVISAO">Revisão</option>
+                        <option value="SUSPENSO">Suspenso</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row" id="projetosContainer"></div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end" id="paginationContainer">
+                    <li class="page-item disabled">
+                        <a class="page-link">Primeiro</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link">Anterior</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Próximo</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Último</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+</div>
+
+<script>
+    let currentPage = 0;
+    let totalPages = 0;
+    const pageSize = 6;
+
+    // Carrega os projetos quando a página é carregada
+    document.addEventListener("DOMContentLoaded", () => {
+        loadProjetos();
+
+        // Configura os event listeners
+        document.getElementById("searchProjeto").addEventListener("input", () => {
+            currentPage = 0;
+            loadProjetos();
+        });
+
+        document.getElementById("filtroStatus").addEventListener("change", () => {
+            currentPage = 0;
+            loadProjetos();
+        });
+
+        document.getElementById("filtroOrdenacao").addEventListener("change", () => {
+            currentPage = 0;
+            loadProjetos();
+        });
+    });
+
+    function loadProjetos() {
+        // Mostra o loading
+        const container = document.getElementById("projetosContainer");
+        container.innerHTML = `
+            <div class="col-12 text-center my-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+                <p class="mt-2">Carregando projetos...</p>
+            </div>`;
+
+        // Prepara os parâmetros da requisição
+        const searchValue = document.getElementById("searchProjeto").value.trim();
+        const statusValue = document.getElementById("filtroStatus").value;
+        const ordenacaoValue = document.getElementById("filtroOrdenacao").value;
+
+        let url = `http://localhost:8080/projetos?page=${currentPage}&size=${pageSize}`;
+
+        const params = new URLSearchParams();
+        if (searchValue) params.append("nomeProjeto", searchValue);
+        if (statusValue) params.append("statusProjeto", statusValue);
+
+        // Adiciona ordenação
+        if (ordenacaoValue) {
+            const [campo, direcao] = ordenacaoValue.split(',');
+            params.append("sort", `${campo},${direcao}`);
+        }
+
+        if (params.toString()) url += `&${params.toString()}`;
+
+        // Faz a requisição
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                totalPages = data.totalPages;
+                renderProjetos(data.content);
+                updatePagination(data);
+            })
+            .catch(error => {
+                console.error("Erro ao carregar projetos:", error);
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Erro ao carregar projetos: ${error.message}
+                        </div>
+                    </div>`;
+            });
+    }
+
+    function renderProjetos(projetos) {
+        const container = document.getElementById("projetosContainer");
+
+        if (projetos.length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Nenhum projeto encontrado</h5>
+                    <p class="text-muted">Tente ajustar seus filtros de busca</p>
+                </div>`;
+            return;
+        }
+
+        container.innerHTML = "";
+
+        projetos.forEach(projeto => {
+            const card = `
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title">${projeto.nome}</h5>
+                                <span class="badge bg-${getStatusColor(projeto.statusProjeto)}">
+                                    ${formatStatus(projeto.statusProjeto)}
+                                </span>
+                            </div>
+                            <p class="card-text text-muted small mb-2">
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                ${formatDate(projeto.dataInicio)} - ${formatDate(projeto.fimPrevisto)}
+                            </p>
+                            <p class="card-text descricao" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                ${projeto.descricao || 'Sem descrição'}
+                            </p>
+                            <button class="btn btn-link p-0 toggle-desc">Ver mais</button>
+                            <div class="d-flex justify-content-between mt-3">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-tasks me-1"></i> Atividades
+                                </button>
+                                <button type="button" class="btn btn-sm btn-info" onclick="abrirProjeto(${projeto.id})">
+                                    <i class="fas fa-eye me-1"></i> Detalhes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            container.innerHTML += card;
+        });
+
+        // Configura o toggle da descrição
+        document.querySelectorAll(".toggle-desc").forEach(button => {
+            button.addEventListener("click", function() {
+                const desc = this.previousElementSibling;
+                if (desc.style.whiteSpace === "nowrap") {
+                    desc.style.whiteSpace = "normal";
+                    desc.style.overflow = "visible";
+                    this.textContent = "Ver menos";
+                } else {
+                    desc.style.whiteSpace = "nowrap";
+                    desc.style.overflow = "hidden";
+                    this.textContent = "Ver mais";
+                }
+            });
+        });
+    }
+
+    function updatePagination(data) {
+        const pagination = document.getElementById("paginationContainer");
+        pagination.innerHTML = "";
+
+        if (data.totalPages > 1) {
+            pagination.innerHTML += `
+                <li class="page-item ${data.first ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(0)">Primeiro</a>
+                </li>
+                <li class="page-item ${data.first ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Anterior</a>
+                </li>`;
+
+            // Mostra apenas algumas páginas próximas à atual
+            const startPage = Math.max(0, currentPage - 2);
+            const endPage = Math.min(data.totalPages - 1, currentPage + 2);
+
+            for (let i = startPage; i <= endPage; i++) {
+                pagination.innerHTML += `
+                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${i})">${i + 1}</a>
+                </li>`;
+            }
+
+            pagination.innerHTML += `
+                <li class="page-item ${data.last ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Próximo</a>
+                </li>
+                <li class="page-item ${data.last ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${data.totalPages - 1})">Último</a>
+                </li>`;
+        }
+    }
+
+    function changePage(page) {
+        if (page >= 0 && page < totalPages) {
+            currentPage = page;
+            loadProjetos();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function abrirProjeto(id) {
+        window.location.href = `abrirProjeto.html?id=${id}`;
+    }
+
+    // Funções auxiliares
+    function getStatusColor(status) {
+        const colors = {
+            'NAO_INICIADA': 'secondary',
+            'EM_ANDAMENTO': 'primary',
+            'CONCLUIDO': 'success',
+            'CANCELADO': 'danger',
+            'PENDENTE_APROVACAO': 'warning',
+            'REVISAO': 'info',
+            'SUSPENSO': 'dark'
+        };
+        return colors[status] || 'secondary';
+    }
+
+    function formatStatus(status) {
+        const names = {
+            'NAO_INICIADA': 'Não Iniciada',
+            'EM_ANDAMENTO': 'Em Andamento',
+            'CONCLUIDO': 'Concluído',
+            'CANCELADO': 'Cancelado',
+            'PENDENTE_APROVACAO': 'Pendente',
+            'REVISAO': 'Revisão',
+            'SUSPENSO': 'Suspenso'
+        };
+        return names[status] || status;
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return '-';
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

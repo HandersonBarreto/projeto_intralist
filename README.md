@@ -33,7 +33,53 @@ O sistema foi desenvolvido utilizando a arquitetura **Camadas**, que separa clar
 
 ![Class Diagram0](https://github.com/user-attachments/assets/1e694f76-c52a-4307-a9c6-527bfe49f953)
 
-
+## Estrutura do projeto
+```shell
+📂 intralist/
+├── 📂 .mvn/
+├── 📂 src/
+│   ├── 📂 main/
+│   │   ├── 📂 java/
+│   │   │   └── 📂 com/unigoais/intralist/
+│   │   │       ├── 📂 controllers/
+│   │   │       ├── 📂 dto/
+│   │   │       ├── 📂 entities/
+│   │   │       ├── 📂 repositories/
+│   │   │       ├── 📂 services/
+│   │   │       └── 📄 IntralistApplication.java
+│   │   └── 📂 resources/
+│   │       ├── 📂 static/
+│   │       │   ├── 📂 css/
+│   │       │   ├── 📂 img/
+│   │       │   └── 📂 js/
+│   │       ├── 📂 templates/
+│   │       │   ├── 📂 employee/
+│   │       │   │   ├── 📄 list.html
+│   │       │   │   └── 📄 register.html
+│   │       │   ├── 📂 project/
+│   │       │   │   ├── 📄 list.html
+│   │       │   │   ├── 📄 open.html
+│   │       │   │   └── 📄 register.html
+│   │       │   ├── 📂 task/
+│   │       │   │   └── 📄 register.html
+│   │       │   └── 📄 index.html
+│   │       ├── 📄 application.properties
+│   │       ├── 📄 application-test.properties
+│   │       └── 📄 import.sql
+│   └── 📂 test/
+│       ├── 📂 java/
+│           └── 📂 com/unigoais/intralist/
+│               └── 📄 IntralistApplicationTests.java
+├── 📂 target/
+├── 📄 .gitattributes
+├── 📄 .gitignore
+├── 📄 HELP.md
+├── 📄 mvnw
+├── 📄 mvnw.cmd
+├── 📄 pom.xml
+└── 📄 README.md
+├── 📂 External Libraries/
+```
 
 ## Como Executar o Projeto
 

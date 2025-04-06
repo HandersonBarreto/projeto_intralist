@@ -58,7 +58,6 @@ public class ProjetoService {
         entity.setDataCriacao(dto.getDataCriacao());
         entity.setDataInicio(dto.getDataInicio());
         entity.setDataFimPrevisto(dto.getDataFimPrevisto());
-        entity.setDataFimReal(dto.getDataFimReal());
         entity.setMeta(dto.getMeta());
         entity.setRisco(dto.getRisco());
         entity.setStatusProjeto(dto.getStatusProjeto());

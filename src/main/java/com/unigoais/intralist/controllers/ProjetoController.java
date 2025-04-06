@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/projetos")
+@CrossOrigin(origins = "http://localhost:63342")
 public class ProjetoController {
 
     @Autowired

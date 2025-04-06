@@ -3,9 +3,6 @@ package com.unigoais.intralist.dto;
 import com.unigoais.intralist.entities.NivelRisco;
 import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.entities.StatusProjeto;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -18,7 +15,6 @@ public class ProjetoDTO {
     private Instant dataCriacao;
     private Instant dataInicio;
     private LocalDate dataFimPrevisto;
-    private Instant dataFimReal;
     private String meta;
     private NivelRisco risco;
     private StatusProjeto statusProjeto;
@@ -34,7 +30,6 @@ public class ProjetoDTO {
         dataCriacao = entity.getDataCriacao();
         dataInicio = entity.getDataInicio();
         dataFimPrevisto = entity.getDataFimPrevisto();
-        dataFimReal = entity.getDataFimReal();
         meta = entity.getMeta();
         risco = entity.getRisco();
         statusProjeto = entity.getStatusProjeto();
@@ -62,10 +57,6 @@ public class ProjetoDTO {
 
     public LocalDate getDataFimPrevisto() {
         return dataFimPrevisto;
-    }
-
-    public Instant getDataFimReal() {
-        return dataFimReal;
     }
 
     public String getMeta() {

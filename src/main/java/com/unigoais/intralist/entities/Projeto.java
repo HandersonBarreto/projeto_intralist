@@ -136,7 +136,12 @@ public class Projeto {
 
     public void setStatusProjeto(StatusProjeto statusProjeto) {
         this.statusProjeto = statusProjeto;
+        // Se o status for concluído e ainda não tiver uma data de fim real, preenche com o momento atual
+        if (statusProjeto == StatusProjeto.CONCLUIDO && this.dataFimReal == null) {
+            this.dataFimReal = Instant.now();
+        }
     }
+
 
     public Equipe getEquipe() {
         return equipe;
