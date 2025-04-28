@@ -41,6 +41,12 @@ public class Funcionario {
             inverseJoinColumns = @JoinColumn(name = "equipe_id"))
     private Set<Equipe> equipes = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     public Funcionario(){
 
     }
@@ -135,5 +141,18 @@ public class Funcionario {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void addRole(Role role){
+        roles.add(role);
+    }
+
+    public boolean hasRole(String nameRole){
+        for (Role role: roles){
+            if (role.getAuthority().equals(nameRole)){
+                return true;
+            }
+        }
+        return false;
     }
 }
