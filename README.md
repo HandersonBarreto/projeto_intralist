@@ -30,7 +30,9 @@ O sistema foi desenvolvido utilizando a arquitetura **Camadas**, que separa clar
 
 ![img.png](img.png)
 ## Modelo de Dominio
-![Class model.png](..%2FUml%2FClass%20model.png)
+
+![Class model](https://github.com/user-attachments/assets/fdd90bd2-dd26-42e9-b7ed-b22e3136b5b6)
+
 
 ## Estrutura do projeto
 ```shell
