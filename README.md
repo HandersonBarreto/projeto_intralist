@@ -31,8 +31,7 @@ O sistema foi desenvolvido utilizando a arquitetura **Camadas**, que separa clar
 ![img.png](img.png)
 ## Modelo de Dominio
 
-![Class model](https://github.com/user-attachments/assets/fdd90bd2-dd26-42e9-b7ed-b22e3136b5b6)
-
+![Class model](https://github.com/user-attachments/assets/5f6ef903-13ed-4cae-a4be-7e884091bcbb)
 
 ## Estrutura do projeto
 ```shell
