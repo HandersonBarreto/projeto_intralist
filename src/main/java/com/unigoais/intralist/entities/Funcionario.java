@@ -21,6 +21,7 @@ public class Funcionario {
     @Column(unique = true)
     private String cpf;
     private String telefone;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private StatusFuncionario statusFuncionario;
@@ -143,6 +144,14 @@ public class Funcionario {
         this.descricao = descricao;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void addRole(Role role){
         roles.add(role);
     }
@@ -154,5 +163,9 @@ public class Funcionario {
             }
         }
         return false;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 }
