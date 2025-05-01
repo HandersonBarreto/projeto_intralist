@@ -3,6 +3,8 @@ package com.unigoais.intralist.dto;
 import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.entities.StatusFuncionario;
 
+import java.util.List;
+
 public class FuncionarioDTO {
 
     private Long id;
@@ -14,6 +16,8 @@ public class FuncionarioDTO {
     private StatusFuncionario statusFuncionario;
     private String cargo;
     private String descricao;
+
+   // private List<EquipeDTO>  = new
 
     public FuncionarioDTO(){
 
