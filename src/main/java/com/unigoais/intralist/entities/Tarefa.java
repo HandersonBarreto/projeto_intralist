@@ -128,4 +128,8 @@ public class Tarefa {
     public Projeto getProjeto() {
         return projeto;
     }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
 }

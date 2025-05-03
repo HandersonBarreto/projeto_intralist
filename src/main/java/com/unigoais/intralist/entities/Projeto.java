@@ -45,7 +45,7 @@ public class Projeto {
 
     }
 
-    public Projeto(Long id, String nome, String descricao, Instant dataCriacao, Instant dataInicio, LocalDate dataFimPrevisto, Instant dataFimReal, String meta, NivelRisco risco, StatusProjeto statusProjeto) {
+    public Projeto(Long id, String nome, String descricao, Instant dataCriacao, Instant dataInicio, LocalDate dataFimPrevisto, Instant dataFimReal, String meta, NivelRisco risco, StatusProjeto statusProjeto, Equipe equipe, List<Tarefa> tarefas) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -56,6 +56,8 @@ public class Projeto {
         this.meta = meta;
         this.risco = risco;
         this.statusProjeto = statusProjeto;
+        this.equipe = equipe;
+        this.tarefas = tarefas;
     }
 
     public Long getId() {
@@ -150,5 +152,11 @@ public class Projeto {
     public List<Tarefa> getTarefas() {
         return tarefas;
     }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+
 }
 

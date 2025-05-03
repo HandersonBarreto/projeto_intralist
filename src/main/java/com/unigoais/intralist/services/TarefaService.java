@@ -1,7 +1,9 @@
 package com.unigoais.intralist.services;
 
 import com.unigoais.intralist.dto.TarefaDTO;
+import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.entities.Tarefa;
+import com.unigoais.intralist.repositories.ProjetoRepository;
 import com.unigoais.intralist.repositories.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class TarefaService {
 
     @Autowired
     private TarefaRepository repository;
+
+    @Autowired
+    private ProjetoRepository projetoRepository;
 
     @Transactional(readOnly = true)
     public TarefaDTO findById(Long id) {
@@ -35,6 +40,10 @@ public class TarefaService {
     public TarefaDTO insert(TarefaDTO dto) {
         Tarefa entity = new Tarefa();
         copyDtoToEntity(dto, entity);
+
+        Projeto projeto = projetoRepository.getReferenceById(dto.getProjetoId());
+        entity.setProjeto(projeto);
+
         entity = repository.save(entity);
         return new TarefaDTO(entity);
     }
@@ -42,6 +51,10 @@ public class TarefaService {
     public TarefaDTO update(Long id, TarefaDTO dto) {
         Tarefa entity = repository.getReferenceById(id);
         copyDtoToEntity(dto, entity);
+
+        Projeto projeto = projetoRepository.getReferenceById(dto.getProjetoId());
+        entity.setProjeto(projeto);
+
         entity = repository.save(entity);
         return new TarefaDTO(entity);
     }

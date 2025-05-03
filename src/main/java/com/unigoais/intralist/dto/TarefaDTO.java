@@ -17,6 +17,7 @@ public class TarefaDTO {
     private Instant fimReal;
     private Instant dataAtualizacao;
     private StatusTarefa statusTarefa;
+    private Long projetoId;
 
     public TarefaDTO(){
 
@@ -32,6 +33,7 @@ public class TarefaDTO {
         fimReal = entity.getFimReal();
         dataAtualizacao = entity.getDataAtualizacao();
         statusTarefa = entity.getStatusTarefa();
+        projetoId = entity.getProjeto().getId();
     }
 
     public Long getId() {
@@ -68,5 +70,9 @@ public class TarefaDTO {
 
     public StatusTarefa getStatusTarefa() {
         return statusTarefa;
+    }
+
+    public Long getProjetoId() {
+        return projetoId;
     }
 }

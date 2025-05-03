@@ -1,7 +1,10 @@
 package com.unigoais.intralist.services;
 
 import com.unigoais.intralist.dto.ProjetoDTO;
+import com.unigoais.intralist.entities.Departamento;
+import com.unigoais.intralist.entities.Equipe;
 import com.unigoais.intralist.entities.Projeto;
+import com.unigoais.intralist.repositories.EquipeRepository;
 import com.unigoais.intralist.repositories.ProjetoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +19,9 @@ public class ProjetoService {
 
     @Autowired
     private ProjetoRepository repository;
+
+    @Autowired
+    private EquipeRepository equipeRepository;
 
     @Transactional(readOnly = true)
     public ProjetoDTO findById(Long id) {
@@ -35,6 +41,10 @@ public class ProjetoService {
     public ProjetoDTO insert(ProjetoDTO dto) {
         Projeto entity = new Projeto();
         copyDtoTOEntity(dto, entity);
+
+        Equipe equipe = equipeRepository.getReferenceById(dto.getEquipeId());
+        entity.setEquipe(equipe);
+
         entity = repository.save(entity);
         return new ProjetoDTO(entity);
     }
@@ -43,6 +53,10 @@ public class ProjetoService {
     public ProjetoDTO update(Long id, ProjetoDTO dto) {
         Projeto entity = repository.getReferenceById(id);
         copyDtoTOEntity(dto, entity);
+
+        Equipe equipe = equipeRepository.getReferenceById(dto.getEquipeId());
+        entity.setEquipe(equipe);
+
         entity = repository.save(entity);
         return new ProjetoDTO(entity);
     }

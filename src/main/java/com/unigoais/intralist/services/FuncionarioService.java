@@ -2,9 +2,12 @@ package com.unigoais.intralist.services;
 
 import com.unigoais.intralist.controllers.handler.DatabaseException;
 import com.unigoais.intralist.dto.FuncionarioDTO;
+import com.unigoais.intralist.entities.Departamento;
 import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.entities.Role;
+import com.unigoais.intralist.entities.Tarefa;
 import com.unigoais.intralist.projections.FuncionarioDetailsProjection;
+import com.unigoais.intralist.repositories.DepartamentoRepository;
 import com.unigoais.intralist.repositories.FuncionarioRepository;
 import com.unigoais.intralist.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class FuncionarioService implements UserDetailsService {
     @Autowired
     private FuncionarioRepository repository;
 
+    @Autowired
+    private DepartamentoRepository departamentoRepository;
+
     @Transactional(readOnly = true)
     public FuncionarioDTO findById(Long id){
         Optional<Funcionario> result = repository.findById(id);
@@ -46,6 +52,10 @@ public class FuncionarioService implements UserDetailsService {
     public FuncionarioDTO insert(FuncionarioDTO dto){
         Funcionario entity = new Funcionario();
         copyDtoToEntity(dto, entity);
+
+        Departamento departamento = departamentoRepository.getReferenceById(dto.getDepartamentoId());
+        entity.setDepartamento(departamento);
+
         entity = repository.save(entity);
         return new FuncionarioDTO(entity);
     }
@@ -55,6 +65,11 @@ public class FuncionarioService implements UserDetailsService {
         try {
             Funcionario entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
+
+            Departamento departamento = departamentoRepository.getReferenceById(dto.getDepartamentoId());
+
+            entity.setDepartamento(departamento);
+
             entity = repository.save(entity);
             return new FuncionarioDTO(entity);
         }
@@ -82,6 +97,7 @@ public class FuncionarioService implements UserDetailsService {
         entity.setEmail(dto.getEmail());
         entity.setCpf(dto.getCpf());
         entity.setTelefone(dto.getTelefone());
+        entity.setPassword(dto.getPassword());
         entity.setStatusFuncionario(dto.getStatusFuncionario());
         entity.setCargo(dto.getCargo());
         entity.setDescricao(dto.getDescricao());

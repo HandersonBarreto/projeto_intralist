@@ -13,7 +13,7 @@ public class Departamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-
+    private String cargo;
     @Column(columnDefinition = "TEXT")
     private String descricao;
     private String responsavel;
@@ -38,12 +38,21 @@ public class Departamento {
         this.localizacao = localizacao;
     }
 
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public String getNome() {

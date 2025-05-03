@@ -79,4 +79,6 @@ public class Equipe {
     public List<Projeto> getProjetos() {
         return projetos;
     }
+
+
 }

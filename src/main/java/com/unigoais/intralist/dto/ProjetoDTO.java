@@ -18,6 +18,7 @@ public class ProjetoDTO {
     private String meta;
     private NivelRisco risco;
     private StatusProjeto statusProjeto;
+    private Long equipeId;
 
     public ProjetoDTO() {
 
@@ -33,6 +34,7 @@ public class ProjetoDTO {
         meta = entity.getMeta();
         risco = entity.getRisco();
         statusProjeto = entity.getStatusProjeto();
+        equipeId = entity.getEquipe().getId();
     }
 
     public Long getId() {
@@ -70,4 +72,10 @@ public class ProjetoDTO {
     public StatusProjeto getStatusProjeto() {
         return statusProjeto;
     }
+
+    public Long getEquipeId() {
+        return equipeId;
+    }
+
+
 }

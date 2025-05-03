@@ -1,9 +1,8 @@
 package com.unigoais.intralist.dto;
 
+import com.unigoais.intralist.entities.Departamento;
 import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.entities.StatusFuncionario;
-
-import java.util.List;
 
 public class FuncionarioDTO {
 
@@ -13,14 +12,29 @@ public class FuncionarioDTO {
     private String email;
     private String cpf;
     private String telefone;
+    private String password;
     private StatusFuncionario statusFuncionario;
     private String cargo;
     private String descricao;
+    private Long departamentoId;
 
-   // private List<EquipeDTO>  = new
 
     public FuncionarioDTO(){
 
+    }
+
+    public FuncionarioDTO(Long id, String nome, String fotoUrl, String email, String cpf, String telefone, String password, StatusFuncionario statusFuncionario, String cargo, String descricao, Long departamentoId) {
+        this.id = id;
+        this.nome = nome;
+        this.fotoUrl = fotoUrl;
+        this.email = email;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.password = password;
+        this.statusFuncionario = statusFuncionario;
+        this.cargo = cargo;
+        this.descricao = descricao;
+        this.departamentoId = departamentoId;
     }
 
     public FuncionarioDTO(Funcionario entity) {
@@ -30,10 +44,13 @@ public class FuncionarioDTO {
         email = entity.getEmail();
         cpf = entity.getCpf();
         telefone = entity.getTelefone();
+        password = entity.getPassword();
         statusFuncionario = entity.getStatusFuncionario();
         cargo = entity.getCargo();
         descricao = entity.getDescricao();
+        departamentoId = entity.getDepartamento().getId();
     }
+
 
     public String getDescricao() {
         return descricao;
@@ -69,6 +86,14 @@ public class FuncionarioDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Long getDepartamentoId() {
+        return departamentoId;
     }
 }
 

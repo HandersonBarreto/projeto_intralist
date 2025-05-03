@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -56,16 +55,20 @@ public class Funcionario implements UserDetails {
 
     }
 
-    public Funcionario(Long id, String nome, String fotoUrl, String email, String cpf, String telefone, StatusFuncionario statusFuncionario, String cargo, String descricao) {
+    public Funcionario(Long id, String nome, String fotoUrl, String email, String cpf, String telefone, String password, StatusFuncionario statusFuncionario, String cargo, String descricao, Departamento departamento, Set<Equipe> equipes, Set<Role> roles) {
         this.id = id;
         this.nome = nome;
         this.fotoUrl = fotoUrl;
         this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
+        this.password = password;
         this.statusFuncionario = statusFuncionario;
         this.cargo = cargo;
         this.descricao = descricao;
+        this.departamento = departamento;
+        this.equipes = equipes;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -201,5 +204,9 @@ public class Funcionario implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 }
