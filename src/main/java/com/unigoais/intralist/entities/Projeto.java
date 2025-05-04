@@ -38,7 +38,7 @@ public class Projeto {
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
 
-    @OneToMany(mappedBy = "projeto")
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefa> tarefas = new ArrayList<>();
 
     public Projeto(){
@@ -157,6 +157,8 @@ public class Projeto {
         this.equipe = equipe;
     }
 
-
+    public void setTarefas(List<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
 }
 

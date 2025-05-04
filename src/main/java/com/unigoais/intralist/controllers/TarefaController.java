@@ -12,8 +12,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+
 @RestController
-@RequestMapping(value = "/tarefas")
+@RequestMapping("/tarefas")
+@CrossOrigin(origins = "http://localhost:63342")
 public class TarefaController {
 
     @Autowired

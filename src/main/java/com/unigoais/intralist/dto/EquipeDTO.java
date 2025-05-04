@@ -1,8 +1,11 @@
 package com.unigoais.intralist.dto;
 
 import com.unigoais.intralist.entities.Equipe;
+import com.unigoais.intralist.entities.Funcionario;
+import com.unigoais.intralist.entities.Projeto;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EquipeDTO {
@@ -10,6 +13,12 @@ public class EquipeDTO {
     private String nome;
     private String descricao;
     private Instant dataCriacao;
+
+    private List<FuncionarioDTO> funcionarios = new ArrayList<>();
+    private List<ProjetoDTO> projetos = new ArrayList<>();
+
+    public EquipeDTO() {
+    }
 
     public EquipeDTO(Long id, String nome, String descricao, Instant dataCriacao) {
         this.id = id;
@@ -23,6 +32,14 @@ public class EquipeDTO {
         nome = entity.getNome();
         descricao = entity.getDescricao();
         dataCriacao = entity.getDataCriacao();
+
+        for (Funcionario funcionario : entity.getFuncionarios()){
+            funcionarios.add(new FuncionarioDTO(funcionario));
+        }
+
+        for (Projeto projeto : entity.getProjetos()){
+            projetos.add(new ProjetoDTO(projeto));
+        }
     }
 
     public Long getId() {
@@ -39,5 +56,13 @@ public class EquipeDTO {
 
     public Instant getDataCriacao() {
         return dataCriacao;
+    }
+
+    public List<FuncionarioDTO> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public List<ProjetoDTO> getProjetos() {
+        return projetos;
     }
 }

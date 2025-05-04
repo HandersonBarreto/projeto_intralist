@@ -50,6 +50,17 @@
             justify-content: center;
             border-radius: 50%;
         }
+
+        .tarefa-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .tarefa-item:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
     </style>
 </head>
 <body>
@@ -202,7 +213,17 @@
                 </div>
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-success btn-submit">Cadastrar</button>
+                    <h5>Tarefas</h5>
+                    <div id="tarefasContainer"></div>
+                    <button type="button" class="btn btn-outline-primary mt-2" onclick="adicionarTarefa()">
+                        <i class="fas fa-plus me-1"></i> Adicionar Tarefa
+                    </button>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success btn-submit">
+                        <i class="fas fa-save me-1"></i> Cadastrar
+                    </button>
                 </div>
             </form>
         </div>
@@ -212,76 +233,127 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-
-        if (id) {
-            // Carrega os dados do projeto para edição
-            fetch(`http://localhost:8080/projetos/${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('projetoId').value = data.id;
-                    document.getElementById('inputNome').value = data.nome;
-                    document.getElementById('inputDataCriacao').value = data.dataCriacao;
-                    document.getElementById('inputDataInicio').value = data.dataInicio;
-                    document.getElementById('inputFimPrevisto').value = data.fimPrevisto;
-                    document.getElementById('inputRisco').value = data.risco;
-                    document.getElementById('inputStatusProjeto').value = data.statusProjeto;
-                    document.getElementById('inputMeta').value = data.meta;
-                    document.getElementById('inputDescricao').value = data.descricao;
-
-                    // Altera o texto do botão para "Atualizar"
-                    document.getElementById('liveToastBtn').textContent = 'Atualizar';
-                })
-                .catch(error => console.error('Erro ao carregar projeto:', error));
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Preenche a data de criação com a data atual
+        const hoje = new Date().toISOString().split('T')[0];
+        document.getElementById('inputDataCriacao').value = hoje;
     });
 
+    function adicionarTarefa() {
+        const container = document.getElementById('tarefasContainer');
+        const index = container.children.length;
+        const hoje = new Date().toISOString().split('T')[0];
+
+        const tarefaHTML = `
+            <div class="tarefa-item border p-3 mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0">Tarefa ${index + 1}</h6>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="tarefa_nome_${index}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Descrição</label>
+                        <input type="text" class="form-control" name="tarefa_descricao_${index}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Data Criação</label>
+                        <input type="date" class="form-control" name="tarefa_dataCriacao_${index}" value="${hoje}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Data Início</label>
+                        <input type="date" class="form-control" name="tarefa_dataInicio_${index}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Data Fim Previsto</label>
+                        <input type="date" class="form-control" name="tarefa_dataFim_${index}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="tarefa_status_${index}">
+                            <option value="NAO_INICIADA">Não iniciada</option>
+                            <option value="EM_ANDAMENTO">Em andamento</option>
+                            <option value="CONCLUIDO">Concluído</option>
+                            <option value="CANCELADO">Cancelado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.insertAdjacentHTML('beforeend', tarefaHTML);
+    }
+
     document.getElementById('projetoForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
+        event.preventDefault();
 
-        const id = document.getElementById('projetoId').value;
-        const form = document.getElementById('projetoForm');
-        const formData = new FormData(form);
+        // Coletar dados das tarefas
+        const tarefas = [];
+        const tarefasElements = document.querySelectorAll('#tarefasContainer .tarefa-item');
 
-    const projeto = {
-        nome: formData.get('nome'),
-        descricao: formData.get('descricao'),
-        dataCriacao: formData.get('dataCriacao') + 'T00:00:00Z',
-        dataInicio: formData.get('dataInicio') + 'T00:00:00Z',
-        dataFimPrevisto: formData.get('fimPrevisto') + 'T00:00:00Z',
-        meta: formData.get('meta'),
-        risco: formData.get('risco'),
-        statusProjeto: formData.get('statusProjeto')
-    };
+        tarefasElements.forEach((element, index) => {
+            tarefas.push({
+                nome: element.querySelector(`[name="tarefa_nome_${index}"]`).value,
+                descricao: element.querySelector(`[name="tarefa_descricao_${index}"]`).value,
+                dataCriacao: new Date(element.querySelector(`[name="tarefa_dataCriacao_${index}"]`).value).toISOString(),
+                dataInicio: new Date(element.querySelector(`[name="tarefa_dataInicio_${index}"]`).value).toISOString(),
+                fimPrevisto: element.querySelector(`[name="tarefa_dataFim_${index}"]`).value,
+                fimReal: new Date().toISOString(),
+                dataAtualizacao: new Date().toISOString(),
+                statusTarefa: element.querySelector(`[name="tarefa_status_${index}"]`).value
+            });
+        });
 
-        const url = id ? `http://localhost:8080/projetos/${id}` : 'http://localhost:8080/projetos';
-        const method = id ? 'PUT' : 'POST';
+        // Criar objeto projeto
+        const projeto = {
+            nome: document.getElementById('inputNome').value,
+            descricao: document.getElementById('inputDescricao').value,
+            dataCriacao: new Date(document.getElementById('inputDataCriacao').value).toISOString(),
+            dataInicio: new Date(document.getElementById('inputDataInicio').value).toISOString(),
+            dataFimPrevisto: document.getElementById('inputFimPrevisto').value,
+            dataFimReal: new Date().toISOString(),
+            meta: document.getElementById('inputMeta').value,
+            risco: document.getElementById('inputRisco').value,
+            statusProjeto: document.getElementById('inputStatusProjeto').value,
+            equipeId: 1,
+            tarefas: tarefas
+        };
 
-        fetch(url, {
-            method: method,
-            headers: { 'Content-Type': 'application/json' },
+        // Enviar para a API
+        fetch('http://localhost:8080/projetos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify(projeto)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Exibe o Toast de sucesso
             const toastLiveExample = document.getElementById('liveToast');
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+            toastLiveExample.querySelector('.toast-body').textContent = 'Projeto cadastrado com sucesso!';
             toastBootstrap.show();
 
-            // Redireciona para a lista após 2 segundos
             setTimeout(() => {
-                window.location.href = 'listarProjeto.html';
+                window.location.href = 'list.html';
             }, 2000);
         })
         .catch(error => {
             console.error('Erro:', error);
-            // Exibe o Toast de erro
             const toastLiveExample = document.getElementById('liveToast');
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-            toastLiveExample.querySelector('.toast-body').textContent = 'Erro ao salvar funcionário!';
+            toastLiveExample.querySelector('.toast-body').textContent = 'Erro ao salvar projeto!';
             toastBootstrap.show();
         });
     });

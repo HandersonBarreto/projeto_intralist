@@ -6,6 +6,8 @@ import com.unigoais.intralist.entities.StatusProjeto;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjetoDTO {
 
@@ -19,6 +21,7 @@ public class ProjetoDTO {
     private NivelRisco risco;
     private StatusProjeto statusProjeto;
     private Long equipeId;
+    private List<TarefaDTO> tarefas = new ArrayList<>();
 
     public ProjetoDTO() {
 
@@ -35,6 +38,7 @@ public class ProjetoDTO {
         risco = entity.getRisco();
         statusProjeto = entity.getStatusProjeto();
         equipeId = entity.getEquipe().getId();
+        entity.getTarefas().forEach(tarefa -> this.tarefas.add(new TarefaDTO(tarefa)));
     }
 
     public Long getId() {
@@ -77,5 +81,7 @@ public class ProjetoDTO {
         return equipeId;
     }
 
-
+    public List<TarefaDTO> getTarefas() {
+        return tarefas;
+    }
 }
