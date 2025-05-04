@@ -2,8 +2,6 @@ package com.unigoais.intralist.controllers;
 
 import com.unigoais.intralist.dto.EquipeDTO;
 import com.unigoais.intralist.services.EquipeService;
-import com.unigoais.intralist.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +38,4 @@ public class EquipeController {
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
-
-
 }

@@ -27,6 +27,15 @@ public class FuncionarioController {
         return ResponseEntity.ok(dto);
     }
 
+    // No FuncionarioController.java
+    @GetMapping("/search")
+    public ResponseEntity<Page<FuncionarioDTO>> search(
+            @RequestParam String nome,
+            Pageable pageable) {
+        Page<FuncionarioDTO> result = service.search(nome, pageable);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping()
     public ResponseEntity <Page<FuncionarioDTO>> findAll(Pageable pageable){
         Page<FuncionarioDTO> dto = service.findAll(pageable);

@@ -25,6 +25,15 @@ public class ProjetoController {
         return ResponseEntity.ok(dto);
     }
 
+    // No ProjetoController.java
+    @GetMapping("/search")
+    public ResponseEntity<Page<ProjetoDTO>> search(
+            @RequestParam String nome,
+            Pageable pageable) {
+        Page<ProjetoDTO> result = service.search(nome, pageable);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping
     public ResponseEntity<Page<ProjetoDTO>> findAll(Pageable pageable) {
         Page<ProjetoDTO> dto = service.findAll(pageable);

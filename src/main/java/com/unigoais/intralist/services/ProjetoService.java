@@ -2,7 +2,6 @@ package com.unigoais.intralist.services;
 
 import com.unigoais.intralist.dto.ProjetoDTO;
 import com.unigoais.intralist.dto.TarefaDTO;
-import com.unigoais.intralist.entities.Departamento;
 import com.unigoais.intralist.entities.Equipe;
 import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.entities.Tarefa;
@@ -32,6 +31,13 @@ public class ProjetoService {
         Projeto projeto = result.get();
         ProjetoDTO dto = new ProjetoDTO(projeto);
         return dto;
+    }
+
+    // No ProjetoService.java
+    @Transactional(readOnly = true)
+    public Page<ProjetoDTO> search(String nome, Pageable pageable) {
+        Page<Projeto> result = repository.findByNomeContainingIgnoreCase(nome, pageable);
+        return result.map(ProjetoDTO::new);
     }
 
     @Transactional(readOnly = true)

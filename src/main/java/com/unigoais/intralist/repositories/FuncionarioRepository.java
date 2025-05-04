@@ -4,12 +4,15 @@ import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.projections.FuncionarioDetailsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
     Funcionario findByEmail(String email);
+	Page<Funcionario> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
 
     @Query(nativeQuery = true, value = """
 			SELECT tb_funcionario.email AS username, tb_funcionario.password, tb_role.id AS roleId, tb_role.authority

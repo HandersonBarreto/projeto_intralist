@@ -42,6 +42,13 @@ public class FuncionarioService implements UserDetailsService {
         return dto;
     }
 
+    // No FuncionarioService.java
+    @Transactional(readOnly = true)
+    public Page<FuncionarioDTO> search(String nome, Pageable pageable) {
+        Page<Funcionario> result = repository.findByNomeContainingIgnoreCase(nome, pageable);
+        return result.map(FuncionarioDTO::new);
+    }
+
     @Transactional(readOnly = true)
     public Page<FuncionarioDTO> findAll(Pageable pageable){
         Page<Funcionario> result = repository.findAll(pageable);
