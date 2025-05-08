@@ -10,7 +10,9 @@ public class DepartamentoDTO {
     private String descricao;
     private String responsavel;
     private String localizacao;
-    private Long pertenceaIs;
+
+    public DepartamentoDTO() {
+    }
 
     public DepartamentoDTO(Long id, String cargo, String nome, String descricao, String responsavel, String localizacao) {
         this.id = id;

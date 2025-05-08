@@ -27,7 +27,6 @@ public class FuncionarioController {
         return ResponseEntity.ok(dto);
     }
 
-    // No FuncionarioController.java
     @GetMapping("/search")
     public ResponseEntity<Page<FuncionarioDTO>> search(
             @RequestParam String nome,

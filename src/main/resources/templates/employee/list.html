@@ -161,7 +161,7 @@
 
 <script>
     function carregarFuncionarios(page = 0) {
-        const url = `http://localhost:8080/funcionarios?page=${page}&size=20`; // Ajuste o tamanho de acordo com sua necessidade
+        const url = `http://localhost:8080/funcionarios?page=${page}&size=20`;
 
         fetch(url)
             .then(response => response.json())
@@ -211,7 +211,7 @@
         $(document).on("click", ".editar-funcionario", function (event) {
             event.preventDefault();
             let id = $(this).data("id");
-            window.location.href = `cadastroFuncionario.html?id=${id}`;
+            window.location.href = `../employee/register.html?id=${id}`;
         });
 
 $(document).on("click", ".deletar-funcionario", function (event) {
