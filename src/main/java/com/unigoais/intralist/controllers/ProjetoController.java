@@ -25,7 +25,6 @@ public class ProjetoController {
         return ResponseEntity.ok(dto);
     }
 
-    // No ProjetoController.java
     @GetMapping("/search")
     public ResponseEntity<Page<ProjetoDTO>> search(
             @RequestParam String nome,

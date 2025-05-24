@@ -33,7 +33,6 @@ public class ProjetoService {
         return dto;
     }
 
-    // No ProjetoService.java
     @Transactional(readOnly = true)
     public Page<ProjetoDTO> search(String nome, Pageable pageable) {
         Page<Projeto> result = repository.findByNomeContainingIgnoreCase(nome, pageable);

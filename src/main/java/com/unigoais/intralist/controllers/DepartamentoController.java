@@ -28,4 +28,10 @@ public class DepartamentoController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<DepartamentoDTO>> search(@RequestParam String nome, Pageable pageable) {
+        Page<DepartamentoDTO> dto = service.search(nome, pageable);
+        return ResponseEntity.ok(dto);
+    }
+
 }
