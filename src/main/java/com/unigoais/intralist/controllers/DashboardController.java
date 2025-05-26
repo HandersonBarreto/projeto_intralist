@@ -1,14 +1,13 @@
 package com.unigoais.intralist.controllers;
 
+import com.unigoais.intralist.dto.MonthlyCompletionMetricDTO;
 import com.unigoais.intralist.dto.ProjectStatusMetricDTO;
 import com.unigoais.intralist.dto.TaskStatusMetricDTO;
+import com.unigoais.intralist.entities.StatusTarefa;
 import com.unigoais.intralist.repositories.ProjetoRepository;
 import com.unigoais.intralist.repositories.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +30,12 @@ public class DashboardController {
     @GetMapping("/tasks-by-status")
     public List<TaskStatusMetricDTO> getTaskByStatus(){
         return  tarefaRepository.countTasksByStatus();
+    }
+
+    @GetMapping("/completed-tasks-by-month")
+    public List<MonthlyCompletionMetricDTO> getCompletedTasksByMonth(
+            @RequestParam(name = "year", defaultValue = "2024") int year) {
+        return tarefaRepository.countCompletedTasksByMonthAndYear(StatusTarefa.CONCLUIDO, year);
     }
 
 }

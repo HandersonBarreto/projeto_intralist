@@ -107,7 +107,94 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        function populateYearSelect() {
+                const selectYear = document.getElementById('selectYear');
+                const currentYear = new Date().getFullYear();
+                // Adiciona alguns anos para trás e para frente, ou ajuste conforme necessário
+                for (let year = currentYear - 2; year <= currentYear + 2; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    if (year === currentYear) { // Define o ano atual como selecionado por padrão
+                        option.selected = true;
+                    }
+                    selectYear.appendChild(option);
+                }
+
+                // Adiciona um listener para quando o ano mudar
+                selectYear.addEventListener('change', () => {
+                    const selectedYear = selectYear.value;
+                    fetchCompletedTasksByMonth(selectedYear); // Recarrega o gráfico com o novo ano
+                });
+            }
+
+            // Função para obter o nome do mês a partir do número
+            function getMonthName(monthNumber) {
+                const date = new Date();
+                date.setMonth(monthNumber - 1); // Meses em JS são 0-indexed
+                return date.toLocaleString('pt-BR', { month: 'long' });
+            }
+
+            // NOVA FUNÇÃO: Buscar dados e renderizar o gráfico de Tarefas Concluídas por Mês
+            async function fetchCompletedTasksByMonth(year) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/completed-tasks-by-month?year=${year}`);
+                    if (!response.ok) {
+                        throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
+                    }
+                    const data = await response.json();
+                    console.log(`Dados de Tarefas Concluídas por Mês (${year}):`, data);
+
+                    // Se não houver dados, exibe uma mensagem
+                    if (data.length === 0) {
+                        document.getElementById('completedTasksByMonthChart').innerText = `Nenhuma tarefa concluída encontrada para o ano ${year}.`;
+                        return;
+                    }
+
+                    // Mapear os dados para o formato que o Highcharts espera
+                    const categories = data.map(item => getMonthName(item.month)); // Nomes dos meses
+                    const seriesData = data.map(item => item.count);             // Quantidades
+
+                    Highcharts.chart('completedTasksByMonthChart', {
+                        chart: {
+                            type: 'column' // Ou 'line' para gráfico de linhas
+                        },
+                        title: {
+                            text: `Tarefas Concluídas por Mês (${year})`
+                        },
+                        xAxis: {
+                            categories: categories, // Nomes dos meses no eixo X
+                            title: {
+                                text: 'Mês'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Número de Tarefas'
+                            },
+                            allowDecimals: false // Garante que o eixo Y mostre apenas números inteiros
+                        },
+                        tooltip: {
+                            formatter: function () {
+                                return '<b>' + this.x + '</b><br/>' +
+                                       'Tarefas Concluídas: ' + this.y;
+                            }
+                        },
+                        series: [{
+                            name: 'Tarefas Concluídas',
+                            data: seriesData
+                        }]
+                    });
+
+                } catch (error) {
+                    console.error('Erro ao buscar dados de tarefas concluídas por mês:', error);
+                    document.getElementById('completedTasksByMonthChart').innerText = 'Não foi possível carregar o gráfico. Verifique a API e o console do navegador.';
+                }
+            }
+
     // Chamar a função para carregar o gráfico quando a página for carregada
     fetchProjectsByStatus();
     fetchTasksByStatus();
+    populateYearSelect();
+    fetchCompletedTasksByMonth(new Date().getFullYear());
 });
