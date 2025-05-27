@@ -1,5 +1,7 @@
 package com.unigoais.intralist.dto;
 
+import com.unigoais.intralist.entities.StatusTarefa;
+
 public class MonthlyCompletionMetricDTO {
 
     private Integer month;
@@ -13,14 +15,6 @@ public class MonthlyCompletionMetricDTO {
         this.count = count;
     }
 
-    public Integer getMonth() {
-        return month;
-    }
-
-    public void setMonth(Integer month) {
-        this.month = month;
-    }
-
     public Long getCount() {
         return count;
     }
@@ -28,4 +22,13 @@ public class MonthlyCompletionMetricDTO {
     public void setCount(Long count) {
         this.count = count;
     }
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
 }
+

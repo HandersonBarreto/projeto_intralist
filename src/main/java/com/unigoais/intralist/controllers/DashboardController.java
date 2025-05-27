@@ -1,6 +1,7 @@
 package com.unigoais.intralist.controllers;
 
 import com.unigoais.intralist.dto.MonthlyCompletionMetricDTO;
+import com.unigoais.intralist.dto.MonthlyStatusMetricDTO;
 import com.unigoais.intralist.dto.ProjectStatusMetricDTO;
 import com.unigoais.intralist.dto.TaskStatusMetricDTO;
 import com.unigoais.intralist.entities.StatusTarefa;
@@ -34,8 +35,22 @@ public class DashboardController {
 
     @GetMapping("/completed-tasks-by-month")
     public List<MonthlyCompletionMetricDTO> getCompletedTasksByMonth(
-            @RequestParam(name = "year", defaultValue = "2024") int year) {
+            @RequestParam(name = "year", defaultValue = "2024") int year) { // Mude aqui para 2024
         return tarefaRepository.countCompletedTasksByMonthAndYear(StatusTarefa.CONCLUIDO, year);
+    }
+
+    // NOVO ENDPOINT: Tarefas por Status e por Mês
+    @GetMapping("/tasks-by-status-and-month")
+    public List<MonthlyStatusMetricDTO> getTasksByStatusAndMonth(
+            @RequestParam(name = "year", defaultValue = "2024") int year) {
+        return tarefaRepository.countTasksByStatusAndMonth(year);
+    }
+
+    // NOVO ENDPOINT: Projetos por Status e por Mês
+    @GetMapping("/projects-by-status-and-month")
+    public List<MonthlyStatusMetricDTO> getProjectsByStatusAndMonth(
+            @RequestParam(name = "year", defaultValue = "2024") int year) {
+        return projetoRepository.countProjectsByStatusAndMonth(year);
     }
 
 }
