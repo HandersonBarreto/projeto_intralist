@@ -1,51 +1,39 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // URL base da sua API Spring Boot
+// dashboard.js
+
+document.addEventListener('DOMContentLoaded', () => { // INÍCIO DO ÚNICO DOMContentLoaded GLOBAL
+
     const API_BASE_URL = 'http://localhost:8080/api/dashboard';
 
-    // Função para buscar dados e renderizar o gráfico de Projetos por Status
+    // --- Funções Auxiliares ---
+    function getMonthName(monthNumber) {
+        const date = new Date();
+        date.setMonth(monthNumber - 1);
+        return date.toLocaleString('pt-BR', { month: 'short' });
+    }
+
+    // --- Funções de Fetch e Renderização de Gráficos ---
+
+    // Função para buscar dados e renderizar o gráfico de Projetos por Status (Gráfico de Barras/Pizza)
     async function fetchProjectsByStatus() {
         try {
             const response = await fetch(`${API_BASE_URL}/projects-by-status`);
-            if (!response.ok) {
-                // Se a resposta não for OK (ex: 404, 500), jogue um erro
-                throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
             const data = await response.json();
-            console.log("Dados de Projetos por Status:", data); // Verifique no console do navegador
+            // console.log("Dados de Projetos por Status:", data); // Descomente para verificar no console do navegador
 
-            // Mapear os dados para o formato que o Highcharts espera (name, y)
             const chartData = data.map(item => ({
-                name: item.status, // o status do enum (CANCELADO, CONCLUIDO, etc.)
-                y: item.count      // o count (11, 9, 3, etc.)
+                name: item.status.replace(/_/g, ' '),
+                y: item.count
             }));
 
-            // Renderizar o gráfico Highcharts
             Highcharts.chart('projectsByStatusChart', {
-                chart: {
-                    type: 'bar' // Pode ser 'column' para barras verticais, 'bar' para barras horizontais
-                },
-                title: {
-                    text: 'Projetos por Status'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> ({point.y})'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                        },
-                        showInLegend: true // Mostra a legenda com os nomes dos status
-                    }
-                },
-                series: [{
-                    name: 'Projetos', // Nome da série de dados
-                    colorByPoint: true,
-                    data: chartData
-                }]
+                chart: { type: 'bar', style: { fontFamily: 'Segoe UI, sans-serif' } },
+                title: { text: null },
+                xAxis: { type: 'category', labels: { rotation: -45, style: { fontSize: '10px' } } },
+                yAxis: { min: 0, title: { text: 'Número de Projetos' }, allowDecimals: false },
+                legend: { enabled: false },
+                tooltip: { pointFormat: '{series.name}: <b>{point.y}</b>' },
+                series: [{ name: 'Projetos', colorByPoint: true, data: chartData, dataLabels: { enabled: true, format: '{point.y}' } }]
             });
 
         } catch (error) {
@@ -54,147 +42,160 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Função para buscar dados e renderizar o gráfico de Tarefas por Status (Gráfico de Pizza)
+    async function fetchTasksByStatus() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/tasks-by-status`);
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
+            const data = await response.json();
+            // console.log("Dados de Tarefas por Status:", data);
 
-    // Função para buscar dados e renderizar o gráfico de Tarefas por Status
-        async function fetchTasksByStatus() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/tasks-by-status`);
-                if (!response.ok) {
-                    // Se a resposta não for OK (ex: 404, 500), jogue um erro
-                    throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
-                }
-                const data = await response.json();
-                console.log("Dados de Tarefas por Status:", data);
+            const chartData = data.map(item => ({
+                name: item.status.replace(/_/g, ' '),
+                y: item.count
+            }));
 
-                // Mapear os dados para o formato que o Highcharts espera (name, y)
-                const chartData = data.map(item => ({
-                    name: item.status,
-                    y: item.count
-                }));
+            Highcharts.chart('tasksByStatusChart', {
+                chart: { type: 'pie', style: { fontFamily: 'Segoe UI, sans-serif' } },
+                title: { text: null },
+                tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> ({point.y})' },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true, cursor: 'pointer',
+                        dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.percentage:.1f} %', distance: -50, style: { color: 'white' } },
+                        showInLegend: true
+                    }
+                },
+                series: [{ name: 'Tarefas', colorByPoint: true, data: chartData }]
+            });
 
-                // Renderizar o gráfico Highcharts
-                Highcharts.chart('tasksByStatusChart', {
-                    chart: {
-                        type: 'pie' // Pode ser 'column' para barras verticais, 'bar' para barras horizontais
-                    },
-                    title: {
-                        text: 'Tarefas por Status'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> ({point.y})'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                            },
-                            showInLegend: true // Mostra a legenda com os nomes dos status
-                        }
-                    },
-                    series: [{
-                        name: 'Tarefas', // Nome da série de dados
-                        colorByPoint: true,
-                        data: chartData
-                    }]
-                });
+        } catch (error) {
+            console.error('Erro ao buscar dados de projetos por status:', error);
+            document.getElementById('tasksByStatusChart').innerText = 'Não foi possível carregar o gráfico. Verifique a API e o console do navegador para mais detalhes.';
+        }
+    }
 
-            } catch (error) {
-                console.error('Erro ao buscar dados de projetos por status:', error);
-                document.getElementById('tasksByStatusChart').innerText = 'Não foi possível carregar o gráfico. Verifique a API e o console do navegador para mais detalhes.';
+    // Função para buscar dados e renderizar o gráfico de Projetos por Status por Mês (Gráfico de Linha)
+    async function fetchProjectsByStatusAndMonth(year) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/projects-by-status-and-month?year=${year}`);
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
+            const data = await response.json();
+            // console.log(`Dados de Projetos por Status por Mês (${year}):`, data);
+
+            if (data.length === 0) {
+                document.getElementById('projectsByStatusAndMonthChart').innerHTML = `<p style="text-align: center; margin-top: 50px;">Nenhum dado de projeto por status encontrado para o ano ${year}.</p>`;
+                return;
             }
+
+            const categories = Array.from({ length: 12 }, (_, i) => getMonthName(i + 1));
+            const statusMap = new Map();
+
+            data.forEach(item => {
+                const statusName = item.status.replace(/_/g, ' ');
+                if (!statusMap.has(statusName)) {
+                    statusMap.set(statusName, new Array(12).fill(0));
+                }
+                statusMap.get(statusName)[item.month - 1] = item.count;
+            });
+
+            const series = Array.from(statusMap.entries()).map(([statusName, counts]) => ({
+                name: statusName,
+                data: counts
+            }));
+
+            Highcharts.chart('projectsByStatusAndMonthChart', {
+                chart: { type: 'line', style: { fontFamily: 'Segoe UI, sans-serif' } },
+                title: { text: null },
+                xAxis: { categories: categories, title: { text: 'Mês' } },
+                yAxis: { title: { text: 'Número de Projetos' }, allowDecimals: false },
+                tooltip: { shared: true, valueSuffix: ' projetos' },
+                plotOptions: { line: { dataLabels: { enabled: false }, enableMouseTracking: true } },
+                series: series
+            });
+
+        } catch (error) {
+            console.error('Erro ao buscar dados de projetos por status por mês:', error);
+            document.getElementById('projectsByStatusAndMonthChart').innerHTML = `<p style="text-align: center; margin-top: 50px;">Não foi possível carregar o gráfico. Verifique a API e o console do navegador.</p>`;
+        }
+    }
+
+    // Função para buscar dados e renderizar o gráfico de Tarefas por Status por Mês (Gráfico de Linha)
+    async function fetchTasksByStatusAndMonth(year) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/tasks-by-status-and-month?year=${year}`);
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
+            const data = await response.json();
+            // console.log(`Dados de Tarefas por Status por Mês (${year}):`, data);
+
+            if (data.length === 0) {
+                document.getElementById('tasksByStatusAndMonthChart').innerHTML = `<p style="text-align: center; margin-top: 50px;">Nenhum dado de tarefa por status encontrado para o ano ${year}.</p>`;
+                return;
+            }
+
+            const categories = Array.from({ length: 12 }, (_, i) => getMonthName(i + 1));
+            const statusMap = new Map();
+
+            data.forEach(item => {
+                const statusName = item.status.replace(/_/g, ' ');
+                if (!statusMap.has(statusName)) {
+                    statusMap.set(statusName, new Array(12).fill(0));
+                }
+                statusMap.get(statusName)[item.month - 1] = item.count;
+            });
+
+            const series = Array.from(statusMap.entries()).map(([statusName, counts]) => ({
+                name: statusName,
+                data: counts
+            }));
+
+            Highcharts.chart('tasksByStatusAndMonthChart', {
+                chart: { type: 'line', style: { fontFamily: 'Segoe UI, sans-serif' } },
+                title: { text: null },
+                xAxis: { categories: categories, title: { text: 'Mês' } },
+                yAxis: { title: { text: 'Número de Tarefas' }, allowDecimals: false },
+                tooltip: { shared: true, valueSuffix: ' tarefas' },
+                plotOptions: { line: { dataLabels: { enabled: false }, enableMouseTracking: true } },
+                series: series
+            });
+
+        } catch (error) {
+            console.error('Erro ao buscar dados de tarefas por status por mês:', error);
+            document.getElementById('tasksByStatusAndMonthChart').innerHTML = `<p style="text-align: center; margin-top: 50px;">Não foi possível carregar o gráfico. Verifique a API e o console do navegador.</p>`;
+        }
+    }
+
+    // Função para popular o select de ano e adicionar o listener de mudança
+    function populateYearSelect() {
+        const selectYear = document.getElementById('selectYear');
+        const currentYear = new Date().getFullYear();
+        for (let year = currentYear - 3; year <= currentYear + 1; year++) {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            if (year === currentYear) {
+                option.selected = true;
+            }
+            selectYear.appendChild(option);
         }
 
-        function populateYearSelect() {
-                const selectYear = document.getElementById('selectYear');
-                const currentYear = new Date().getFullYear();
-                // Adiciona alguns anos para trás e para frente, ou ajuste conforme necessário
-                for (let year = currentYear - 2; year <= currentYear + 2; year++) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = year;
-                    if (year === currentYear) { // Define o ano atual como selecionado por padrão
-                        option.selected = true;
-                    }
-                    selectYear.appendChild(option);
-                }
+        selectYear.addEventListener('change', () => {
+            const selectedYear = parseInt(selectYear.value);
+            loadAllCharts(selectedYear);
+        });
+    }
 
-                // Adiciona um listener para quando o ano mudar
-                selectYear.addEventListener('change', () => {
-                    const selectedYear = selectYear.value;
-                    fetchCompletedTasksByMonth(selectedYear); // Recarrega o gráfico com o novo ano
-                });
-            }
+    // Função principal para carregar todos os gráficos
+    function loadAllCharts(year) {
+        fetchProjectsByStatus();
+        fetchTasksByStatus();
+        fetchProjectsByStatusAndMonth(year);
+        fetchTasksByStatusAndMonth(year);
+    }
 
-            // Função para obter o nome do mês a partir do número
-            function getMonthName(monthNumber) {
-                const date = new Date();
-                date.setMonth(monthNumber - 1); // Meses em JS são 0-indexed
-                return date.toLocaleString('pt-BR', { month: 'long' });
-            }
+    // --- INÍCIO DA EXECUÇÃO REAL (APENAS ESTE BLOCO CHAMA AS FUNÇÕES) ---
+    populateYearSelect(); // Popula o select de ano
+    const initialYear = parseInt(document.getElementById('selectYear').value); // Obtém o ano inicial selecionado
+    loadAllCharts(initialYear); // Carrega todos os gráficos com o ano inicial
 
-            // NOVA FUNÇÃO: Buscar dados e renderizar o gráfico de Tarefas Concluídas por Mês
-            async function fetchCompletedTasksByMonth(year) {
-                try {
-                    const response = await fetch(`${API_BASE_URL}/completed-tasks-by-month?year=${year}`);
-                    if (!response.ok) {
-                        throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
-                    }
-                    const data = await response.json();
-                    console.log(`Dados de Tarefas Concluídas por Mês (${year}):`, data);
-
-                    // Se não houver dados, exibe uma mensagem
-                    if (data.length === 0) {
-                        document.getElementById('completedTasksByMonthChart').innerText = `Nenhuma tarefa concluída encontrada para o ano ${year}.`;
-                        return;
-                    }
-
-                    // Mapear os dados para o formato que o Highcharts espera
-                    const categories = data.map(item => getMonthName(item.month)); // Nomes dos meses
-                    const seriesData = data.map(item => item.count);             // Quantidades
-
-                    Highcharts.chart('completedTasksByMonthChart', {
-                        chart: {
-                            type: 'column' // Ou 'line' para gráfico de linhas
-                        },
-                        title: {
-                            text: `Tarefas Concluídas por Mês (${year})`
-                        },
-                        xAxis: {
-                            categories: categories, // Nomes dos meses no eixo X
-                            title: {
-                                text: 'Mês'
-                            }
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Número de Tarefas'
-                            },
-                            allowDecimals: false // Garante que o eixo Y mostre apenas números inteiros
-                        },
-                        tooltip: {
-                            formatter: function () {
-                                return '<b>' + this.x + '</b><br/>' +
-                                       'Tarefas Concluídas: ' + this.y;
-                            }
-                        },
-                        series: [{
-                            name: 'Tarefas Concluídas',
-                            data: seriesData
-                        }]
-                    });
-
-                } catch (error) {
-                    console.error('Erro ao buscar dados de tarefas concluídas por mês:', error);
-                    document.getElementById('completedTasksByMonthChart').innerText = 'Não foi possível carregar o gráfico. Verifique a API e o console do navegador.';
-                }
-            }
-
-    // Chamar a função para carregar o gráfico quando a página for carregada
-    fetchProjectsByStatus();
-    fetchTasksByStatus();
-    populateYearSelect();
-    fetchCompletedTasksByMonth(new Date().getFullYear());
-});
+}); // FIM DO ÚNICO DOMContentLoaded GLOBAL

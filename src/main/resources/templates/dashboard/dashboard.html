@@ -6,53 +6,197 @@
     <title>IntraList - Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #e9ecef;
+            color: #343a40;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #fff;
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px; /* Reduz a margem inferior para diminuir o espaço */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+.dashboard-container {
+            flex-grow: 1;
+            max-width: 1200px; /* Reduzi um pouco a largura máxima para se adequar melhor a duas colunas, mas pode ajustar se preferir mais espaço */
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: grid;
+            /* NOVA LINHA: No máximo 2 colunas, cada uma com no mínimo 550px */
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 20px;
+        }
+
+        .chart-card, .filter-card { /* Aplicar estilo base aos cards */
+            background-color: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 380px; /* Aumenta a altura mínima dos cards para acomodar gráficos maiores */
         }
-        h1, h2 {
-            text-align: center;
-            color: #333;
+
+        .chart-card h2.chart-title { /* Estilo para o título do gráfico no HTML */
+            margin-top: 0;
+            margin-bottom: 15px; /* Adiciona margem abaixo do título */
+            color: #495057;
+            font-size: 1.5em;
+            text-align: center; /* Centraliza o título dentro do card */
+            width: 100%; /* Garante que o título ocupe a largura do card */
         }
-        .chart-container {
-            margin-bottom: 40px;
-            padding: 20px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px; /* Altura padrão para os gráficos. Aumentado para 300px.*/
+            margin-top: 0; /* Remove a margem superior, pois o h2 já tem margem inferior */
+        }
+
+        .filter-card {
+            grid-column: 1 / -1; /* Faz o filtro ocupar toda a largura da grid */
+            display: flex;
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            align-items: center; /* Centraliza o conteúdo verticalmente */
+            padding: 15px 20px; /* Ajusta o padding do filtro */
+            min-height: unset; /* Remove a altura mínima do card para o filtro */
+        }
+
+        .filter-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* Permite que o filtro ocupe o espaço disponível no card */
+        }
+
+        .filter-section label {
+            margin-right: 15px; /* Aumenta a margem para separar melhor */
+            font-weight: bold;
+            color: #343a40;
+            font-size: 1.1em; /* Aumenta o tamanho da fonte */
+        }
+
+        .filter-section select {
+            padding: 10px 15px; /* Aumenta o padding do select */
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            background-color: white;
+            font-size: 1.1em; /* Aumenta o tamanho da fonte */
+            cursor: pointer;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            min-width: 120px; /* Garante uma largura mínima para o select */
+        }
+
+        .filter-section select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+        /* Ajustes para responsividade */
+        @media (max-width: 1200px) { /* Este media query será atualizado */
+            .dashboard-container {
+                /* Para telas entre ~993px e 1200px, manter 2 colunas */
+                grid-template-columns: repeat(2, 1fr); /* Força 2 colunas de tamanho igual */
+                max-width: 960px; /* Reduzindo para caber bem em telas médias */
+                padding: 15px;
+                margin: 15px;
+            }
+            .chart-placeholder {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr; /* Uma única coluna em telas menores */
+                padding: 15px;
+                margin: 15px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            .chart-card, .filter-card {
+                padding: 15px;
+                min-height: unset; /* Permite que a altura se ajuste ao conteúdo em telas pequenas */
+            }
+            .chart-placeholder {
+                height: 250px;
+            }
+            .filter-section {
+                flex-direction: row; /* Mantém em linha, mas centralizado */
+                justify-content: center;
+            }
+            .filter-section label {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            .filter-section {
+                flex-direction: column; /* Em colunas para telas muito pequenas */
+                align-items: center;
+            }
+            .filter-section label {
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
         }
     </style>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script> <script src="https://code.highcharts.com/modules/export-data.js"></script> <script src="https://code.highcharts.com/modules/accessibility.js"></script> </head>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+
+</head>
 <body>
 
+<header>
+    <h1>Dashboard de Gestão de Projetos e Tarefas</h1>
+</header>
 
-<div class="container">
-    <h1>Dashboard de Projetos IntraList</h1>
-
-    <div class="chart-container">
-        <h2>Projetos por Status</h2>
-        <div id="projectsByStatusChart" style="height: 300px;"></div>
-    </div>
-
-    <div class="chart-container">
-        <h2>Tarefas por Status</h2>
-        <div id="tasksByStatusChart" style="height: 300px;"></div>
-    </div>
-
-    <div class="chart-container">
-        <h2>Tarefas Concluídas por Mês</h2>
+<div class="dashboard-container">
+    <div class="filter-card"> <div class="filter-section">
         <label for="selectYear">Selecione o Ano:</label>
-        <select id="selectYear"></select> <div id="completedTasksByMonthChart" style="height: 400px; margin-top: 20px;"></div>
+        <select id="selectYear"></select>
+    </div>
+    </div>
+
+    <div class="chart-card">
+        <h2 class="chart-title">Projetos por Status</h2> <div id="projectsByStatusChart" class="chart-placeholder"></div>
+    </div>
+
+    <div class="chart-card">
+        <h2 class="chart-title">Tarefas por Status</h2> <div id="tasksByStatusChart" class="chart-placeholder"></div>
+    </div>
+
+    <div class="chart-card">
+        <h2 class="chart-title">Projetos por Status por Mês</h2> <div id="projectsByStatusAndMonthChart" class="chart-placeholder"></div>
+    </div>
+
+    <div class="chart-card">
+        <h2 class="chart-title">Tarefas por Status por Mês</h2> <div id="tasksByStatusAndMonthChart" class="chart-placeholder"></div>
     </div>
 
 </div>
