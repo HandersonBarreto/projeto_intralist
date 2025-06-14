@@ -58,12 +58,6 @@ public class EquipeService {
             entity.getFuncionarios().add(funcionario);
         }
 
-        for (ProjetoDTO projetoDTO : dto.getProjetos()) {
-            Projeto projeto = projetoRepository.getReferenceById(projetoDTO.getId());
-            projeto.setEquipe(entity);
-            entity.getProjetos().add(projeto);
-        }
-
         entity = equipeRepository.save(entity);
         return new EquipeDTO(entity);
     }

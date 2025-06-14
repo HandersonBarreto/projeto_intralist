@@ -26,9 +26,6 @@ public class Equipe {
     @ManyToMany(mappedBy = "equipes", cascade = CascadeType.ALL)
     private Set<Funcionario> funcionarios = new HashSet<>();
 
-    @OneToMany(mappedBy = "equipe")
-    private List<Projeto>projetos = new ArrayList<>();
-
     public Equipe(){
 
     }
@@ -75,10 +72,5 @@ public class Equipe {
     public Set<Funcionario> getFuncionarios() {
         return funcionarios;
     }
-
-    public List<Projeto> getProjetos() {
-        return projetos;
-    }
-
 
 }

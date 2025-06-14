@@ -36,10 +36,6 @@ public class EquipeDTO {
         for (Funcionario funcionario : entity.getFuncionarios()){
             funcionarios.add(new FuncionarioDTO(funcionario));
         }
-
-        for (Projeto projeto : entity.getProjetos()){
-            projetos.add(new ProjetoDTO(projeto));
-        }
     }
 
     public Long getId() {

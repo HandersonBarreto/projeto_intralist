@@ -11,7 +11,7 @@ public class Departamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String nome;
     private String cargo;
     @Column(columnDefinition = "TEXT")

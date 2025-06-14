@@ -6,7 +6,7 @@ import com.unigoais.intralist.entities.Uf;
 
 public class EnderecoDTO {
 
-    private  Long id;
+    private Long id;
     private String logradouro;
     private String complemento;
     private Integer numero;

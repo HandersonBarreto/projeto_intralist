@@ -9,347 +9,196 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        :root {
-            --primary-color: #5041bc;
-            --primary-light: #7a6de0;
-            --secondary-color: #6c757d;
-            --success-color: #28a745;
-            --info-color: #17a2b8;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            background-color: #f5f7fa;
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
-            color: #333;
-        }
-
-        .navbar {
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            background-color: white;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-    </style>
+    <link rel="stylesheet" href="../../static/css/global.css">
 </head>
 <body>
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html" aria-label="Intralist - Página Inicial">Intralist</a>
+<div class="container-fluid"> <nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html" aria-label="Intralist - Página Inicial">Intralist</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Alternar navegação">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false" aria-haspopup="true">
-                            <i class="fa-solid fa-plus me-1"></i> Cadastro
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
-                            <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false" aria-current="page" aria-haspopup="true">
-                            <i class="fa-solid fa-list me-1"></i> Listar
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
-                            <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipes</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" aria-label="Dashboard">
-                            <i class="fa-solid fa-chart-line me-1"></i> Dashboard
-                        </a>
-                    </li>
-                </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false" aria-haspopup="true">
+                        <i class="fa-solid fa-plus me-1"></i> Cadastro
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
+                        <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false" aria-current="page" aria-haspopup="true">
+                        <i class="fa-solid fa-list me-1"></i> Listar
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
+                        <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipes</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" aria-label="Dashboard">
+                        <i class="fa-solid fa-chart-line me-1"></i> Dashboard
+                    </a>
+                </li>
+            </ul>
 
-                <div class="d-flex align-items-center ms-auto">
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                            <div class="me-2 d-none d-sm-block text-end">
-                                <span class="small text-muted d-block">Bem-vindo,</span>
-                                <span class="fw-semibold">Nome do Usuário</span>
-                            </div>
-                            <div class="avatar">
-                                <i class="fas fa-user" aria-hidden="true"></i>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Perfil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></li>
-                        </ul>
-                    </div>
+            <div class="d-flex align-items-center ms-auto">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                        <div class="me-2 d-none d-sm-block text-end">
+                            <span class="small text-muted d-block">Bem-vindo,</span>
+                            <span class="fw-semibold">Nome do Usuário</span>
+                        </div>
+                        <div class="avatar">
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Perfil</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container my-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 form-container">
-                <h2 class="mb-4 text-center">Detalhes do Projeto</h2>
+    <main class="container my-4"> <div class="form-container"> <h2 class="mb-4 text-center">Detalhes do Projeto</h2>
 
-                <form id="projetoForm">
-                    <input type="hidden" id="projetoId">
+        <form id="projetoForm">
+            <input type="hidden" id="projetoId">
 
-                    <div class="row g-3">
-                        <div class="col-md-12">
-                            <label for="inputNome" class="form-label">Nome do Projeto</label>
-                            <input type="text" class="form-control" id="inputNome" name="nome" required>
-                        </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label for="inputNome" class="form-label">Nome do Projeto</label>
+                    <input type="text" class="form-control" id="inputNome" name="nome" required>
+                    <div class="invalid-feedback">O nome do projeto é obrigatório.</div>
+                </div>
 
-                        <div class="col-md-6">
-                            <label for="inputDataCriacao" class="form-label">Data Criação</label>
-                            <input type="date" class="form-control" id="inputDataCriacao" name="dataCriacao" required>
-                        </div>
+                <div class="col-md-6">
+                    <label for="inputDataCriacao" class="form-label">Data Criação</label>
+                    <input type="date" class="form-control" id="inputDataCriacao" name="dataCriacao" required>
+                    <div class="invalid-feedback">A data de criação é obrigatória.</div>
+                </div>
 
-                        <div class="col-md-6">
-                            <label for="inputDataInicio" class="form-label">Data Início</label>
-                            <input type="date" class="form-control" id="inputDataInicio" name="dataInicio" required>
-                        </div>
+                <div class="col-md-6">
+                    <label for="inputDataInicio" class="form-label">Data Início</label>
+                    <input type="date" class="form-control" id="inputDataInicio" name="dataInicio" required>
+                    <div class="invalid-feedback">A data de início é obrigatória.</div>
+                </div>
 
-                        <div class="col-md-6">
-                            <label for="inputFimPrevisto" class="form-label">Fim Previsto</label>
-                            <input type="date" class="form-control" id="inputFimPrevisto" name="fimPrevisto" required>
-                        </div>
+                <div class="col-md-6">
+                    <label for="inputFimPrevisto" class="form-label">Fim Previsto</label>
+                    <input type="date" class="form-control" id="inputFimPrevisto" name="fimPrevisto" required>
+                    <div class="invalid-feedback">A data de fim previsto é obrigatória.</div>
+                </div>
 
-                        <div class="col-md-6">
-                            <label for="inputFimReal" class="form-label">Fim Real</label>
-                            <input type="date" class="form-control" id="inputFimReal" name="fimReal">
-                        </div>
+                <div class="col-md-6">
+                    <label for="inputFimReal" class="form-label">Fim Real</label>
+                    <input type="date" class="form-control" id="inputFimReal" name="fimReal">
+                    <div class="invalid-feedback">A data de fim real não pode ser anterior à data de início.</div>
+                </div>
 
-                        <div class="col-md-6">
-                            <label for="inputRisco" class="form-label">Risco</label>
-                            <select class="form-select" id="inputRisco" name="risco" required>
-                                <option value="">Selecione...</option>
-                                <option value="BAIXO">Baixo</option>
-                                <option value="MEDIO">Médio</option>
-                                <option value="ALTO">Alto</option>
-                                <option value="CRITICO">Crítico</option>
-                            </select>
-                        </div>
+                <div class="col-md-6">
+                    <label for="inputRisco" class="form-label">Risco</label>
+                    <select class="form-select" id="inputRisco" name="risco" required>
+                        <option value="">- Selecione -</option>
+                        <option value="BAIXO">Baixo</option>
+                        <option value="MEDIO">Médio</option>
+                        <option value="ALTO">Alto</option>
+                        <option value="CRITICO">Crítico</option>
+                    </select>
+                    <div class="invalid-feedback">O risco do projeto é obrigatório.</div>
+                </div>
 
-                        <div class="col-md-6">
-                            <label for="inputStatusProjeto" class="form-label">Status do Projeto</label>
-                            <select class="form-select" id="inputStatusProjeto" name="statusProjeto" required>
-                                <option value="">Selecione...</option>
-                                <option value="NAO_INICIADA">Não iniciada</option>
-                                <option value="EM_ANDAMENTO">Em andamento</option>
-                                <option value="CONCLUIDO">Concluído</option>
-                                <option value="CANCELADO">Cancelado</option>
-                                <option value="PENDENTE_APROVACAO">Pendente aprovação</option>
-                                <option value="REVISAO">Revisão</option>
-                                <option value="SUSPENSO">Suspenso</option>
-                            </select>
-                        </div>
+                <div class="col-md-6">
+                    <label for="inputStatusProjeto" class="form-label">Status do Projeto</label>
+                    <select class="form-select" id="inputStatusProjeto" name="statusProjeto" required>
+                        <option value="">- Selecione -</option>
+                        <option value="NAO_INICIADA">Não iniciada</option>
+                        <option value="EM_ANDAMENTO">Em andamento</option>
+                        <option value="CONCLUIDO">Concluído</option>
+                        <option value="CANCELADO">Cancelado</option>
+                        <option value="PENDENTE_APROVACAO">Pendente aprovação</option>
+                        <option value="REVISAO">Revisão</option>
+                        <option value="SUSPENSO">Suspenso</option>
+                    </select>
+                    <div class="invalid-feedback">O status do projeto é obrigatório.</div>
+                </div>
 
-                        <div class="col-md-12">
-                            <label for="inputMeta" class="form-label">Meta do Projeto</label>
-                            <input type="text" class="form-control" id="inputMeta" name="meta" required>
-                        </div>
+                <div class="col-md-12">
+                    <label for="inputMeta" class="form-label">Meta do Projeto</label>
+                    <input type="text" class="form-control" id="inputMeta" name="meta" required>
+                    <div class="invalid-feedback">A meta do projeto é obrigatória.</div>
+                </div>
 
-                        <div class="col-md-12">
-                            <label for="inputDescricao" class="form-label">Descrição</label>
-                            <textarea class="form-control" id="inputDescricao" name="descricao" rows="3" required></textarea>
-                        </div>
+                <div class="col-md-12">
+                    <label for="inputDescricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="inputDescricao" name="descricao" rows="3" required></textarea>
+                    <div class="invalid-feedback">A descrição do projeto é obrigatória.</div>
+                </div>
 
-                        <div class="col-md-12 mt-4 d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary btn-custom" onclick="voltarParaListagem()">
-                                <i class="fas fa-arrow-left me-2"></i>Voltar
-                            </button>
-                            <button type="submit" class="btn btn-primary btn-custom">
-                                <i class="fas fa-save me-2"></i>Salvar Alterações
-                            </button>
-
-                            <div class="col-md-12 mt-5">
-                                <h4>Atividades do Projeto</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover mt-3">
-                                        <thead class="table-light">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nome</th>
-                                            <th>Descrição</th>
-                                            <th>Status</th>
-                                            <th>Data Início</th>
-                                            <th>Data Fim</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="tabelaAtividades">
-                                        <tr><td colspan="6" class="text-center">Carregando atividades...</td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </form>
+                <div class="col-md-12 mt-4 d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary btn-custom" onclick="voltarParaListagem()">
+                        <i class="fas fa-arrow-left me-2"></i>Voltar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-custom">
+                        <i class="fas fa-save me-2"></i>Salvar Alterações
+                    </button>
+                </div>
             </div>
+        </form>
+        <div class="col-md-12 mt-5">
+            <h4>Atividades do Projeto</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mt-3">
+                    <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Data Início</th>
+                        <th>Data Fim Previsto</th>
+                        <th>Ações</th> </tr>
+                    </thead>
+                    <tbody id="tabelaAtividades">
+                    <tr><td colspan="7" class="text-center">Carregando atividades...</td></tr> </tbody>
+                </table>
+            </div>
+        </div>
+    </div> </main> </div> <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img class="rounded me-2" alt="check" src="../../static/img/icons/square-check-solid.svg" style="width: 20px; height: 20px;">
+            <strong class="me-auto">Intralist</strong>
+            <small>Agora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
         </div>
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Obter o ID do projeto da URL
-        const params = new URLSearchParams(window.location.search);
-        const projetoId = params.get("id");
-
-        if (projetoId) {
-            carregarProjeto(projetoId);
-        } else {
-            alert("ID do projeto não encontrado na URL");
-            window.location.href = "list.html";
-        }
-
-        // Configurar o evento de submit do formulário
-        document.getElementById("projetoForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            atualizarProjeto(projetoId);
-        });
-    });
-
-    function formatarDataParaInput(dataString) {
-        if (!dataString) return '';
-        const data = new Date(dataString);
-        const ano = data.getFullYear();
-        const mes = String(data.getMonth() + 1).padStart(2, '0');
-        const dia = String(data.getDate()).padStart(2, '0');
-        return `${ano}-${mes}-${dia}`;
-    }
-
-    function carregarProjeto(id) {
-        // Substitua esta URL pela sua API real
-        fetch(`http://localhost:8080/projetos/${id}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Projeto não encontrado");
-                }
-                return response.json();
-            })
-            .then(projeto => {
-                // Preencher o formulário com os dados do projeto
-                document.getElementById("projetoId").value = projeto.id;
-                document.getElementById("inputNome").value = projeto.nome || '';
-                document.getElementById("inputDataCriacao").value = formatarDataParaInput(projeto.dataCriacao);
-                document.getElementById("inputDataInicio").value = formatarDataParaInput(projeto.dataInicio);
-                document.getElementById("inputFimPrevisto").value = formatarDataParaInput(projeto.fimPrevisto);
-                document.getElementById("inputFimReal").value = formatarDataParaInput(projeto.fimReal);
-                document.getElementById("inputRisco").value = projeto.risco || '';
-                document.getElementById("inputStatusProjeto").value = projeto.statusProjeto || '';
-                document.getElementById("inputMeta").value = projeto.meta || '';
-                document.getElementById("inputDescricao").value = projeto.descricao || '';
-            })
-            .catch(error => {
-                console.error("Erro ao carregar projeto:", error);
-                alert("Erro ao carregar projeto: " + error.message);
-                window.location.href = "list.html";
-            });
-
-            // Renderizar atividades
-const tabelaAtividades = document.getElementById("tabelaAtividades");
-tabelaAtividades.innerHTML = ""; // Limpar tabela
-
-if (projeto.atividades && projeto.atividades.length > 0) {
-    projeto.atividades.forEach((atividade, index) => {
-        const linha = document.createElement("tr");
-        linha.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${atividade.nome}</td>
-            <td>${atividade.descricao}</td>
-            <td>${atividade.status}</td>
-            <td>${formatarDataParaInput(atividade.dataInicio)}</td>
-            <td>${formatarDataParaInput(atividade.dataFim)}</td>
-        `;
-        tabelaAtividades.appendChild(linha);
-    });
-} else {
-    tabelaAtividades.innerHTML = `
-        <tr><td colspan="6" class="text-center text-muted">Nenhuma atividade cadastrada.</td></tr>
-    `;
-}
-
-    }
-
-    function atualizarProjeto(id) {
-        const projetoAtualizado = {
-            nome: document.getElementById("inputNome").value,
-            dataCriacao: document.getElementById("inputDataCriacao").value,
-            dataInicio: document.getElementById("inputDataInicio").value,
-            fimPrevisto: document.getElementById("inputFimPrevisto").value,
-            fimReal: document.getElementById("inputFimReal").value || null,
-            risco: document.getElementById("inputRisco").value,
-            statusProjeto: document.getElementById("inputStatusProjeto").value,
-            meta: document.getElementById("inputMeta").value,
-            descricao: document.getElementById("inputDescricao").value
-        };
-
-        // Substitua esta URL pela sua API real
-        fetch(`http://localhost:8080/projetos/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(projetoAtualizado)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao atualizar projeto");
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert("Projeto atualizado com sucesso!");
-            window.location.href = "list.html";
-        })
-        .catch(error => {
-            console.error("Erro ao atualizar projeto:", error);
-            alert("Erro ao atualizar projeto: " + error.message);
-        });
-    }
-
-    function voltarParaListagem() {
-        window.location.href = "list.html";
-    }
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/api.js"></script>
+<script src="../../static/js/open-project.js"></script>
 </body>
 </html>

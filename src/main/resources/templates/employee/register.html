@@ -9,48 +9,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        :root {
-            --primary-color: #5041bc;
-            --primary-light: #7a6de0;
-            --secondary-color: #6c757d;
-            --success-color: #28a745;
-            --info-color: #17a2b8;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            background-color: #f5f7fa;
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
-            color: #333;
-        }
-
-        .navbar {
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            background-color: white;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-    </style>
-</head>
+    <link rel="stylesheet" href="../../static/css/global.css"> </head>
 <body>
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg">
@@ -72,9 +31,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
                             <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -85,9 +41,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
                             <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipes</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -180,7 +133,8 @@
                     <input type="hidden" id="inputDepartamentoId" name="departamentoId">
                 </div>
 
-                <div class="col-md-2">
+
+                <div class="col-md-3">
                     <label for="inputTelefone" class="form-label">Telefone</label>
                     <input type="text" class="form-control" id="inputTelefone" name="telefone" required>
                 </div>
@@ -191,288 +145,18 @@
                         <option value="DESLIGADO">Desligado</option>
                     </select>
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-success me-2" id="liveToastBtn">Cadastrar</button>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success btn-submit">
+                        <i class="fas fa-save me-1"></i> Cadastrar
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    // Carrega os departamentos disponíveis.
-    carregarDepartamentos();
-
-    // Verifica se é uma edição.
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
-    if (id) {
-        // Carrega os dados do funcionário para edição.
-        fetch(`${API_BASE_URL}/funcionarios/${id}`)
-            .then(response => response.json())
-            .then(async data => {
-                document.getElementById('funcionarioId').value = data.id;
-                document.getElementById('inputNome').value = data.nome;
-                document.getElementById('inputCPF').value = data.cpf;
-                document.getElementById('inputDescricao').value = data.descricao;
-                document.getElementById('inputEmail').value = data.email;
-                document.getElementById('inputCargo').value = data.cargo;
-                document.getElementById('inputTelefone').value = data.telefone;
-                document.getElementById('inputStatusFuncionario').value = data.statusFuncionario;
-                document.getElementById('inputDepartamentoId').value = data.departamentoId;
-
-                // Carrega o nome do departamento para exibir na edição.
-                try {
-                    const deptoResponse = await fetch(`${API_BASE_URL}/departamentos/${data.departamentoId}`);
-                    if (deptoResponse.ok) {
-                        const deptoData = await deptoResponse.json();
-                        departamentoSelecionado = deptoData;
-                        atualizarDepartamentoSelecionado();
-                    } else {
-                        console.error('Erro ao carregar departamento para edição.');
-                    }
-                } catch (error) {
-                    console.error('Erro ao carregar departamento para edição:', error);
-                }
-
-                // Altera o texto do botão para "Atualizar".
-                document.getElementById('liveToastBtn').textContent = 'Atualizar';
-            })
-            .catch(error => console.error('Erro ao carregar funcionário:', error));
-    }
-
-    // Configura máscaras para CPF e Telefone.
-    document.getElementById('inputCPF').addEventListener('input', function() {
-        aplicarMascaraCPF(this);
-    });
-
-    document.getElementById('inputTelefone').addEventListener('input', function() {
-        aplicarMascaraTelefone(this);
-    });
-
-    // Configura o envio do formulário.
-    document.getElementById('funcionarioForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        enviarFormulario();
-    });
-});
-
-// Define a URL base da API.
-const API_BASE_URL = 'http://localhost:8080';
-
-// Objeto para armazenar o departamento selecionado.
-let departamentoSelecionado = null;
-
-// Função para carregar departamentos (para popular a busca).
-async function carregarDepartamentos() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/departamentos`);
-        if (!response.ok) {
-            throw new Error('Erro ao carregar departamentos.');
-        }
-        const departamentos = await response.json();
-        // Os departamentos carregados podem ser usados para otimizar a busca localmente,
-        // ou a busca pode ser feita diretamente na API a cada digitação (como implementado abaixo).
-        console.log('Departamentos carregados:', departamentos);
-    } catch (error) {
-        console.error('Erro ao carregar departamentos:', error);
-        mostrarToast('Erro ao carregar departamentos iniciais', 'danger');
-    }
-}
-
-// Função para aplicar debounce na busca.
-function debounce(func, delay) {
-    let timeoutId;
-    return function(...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            func.apply(this, args);
-        }, delay);
-    };
-}
-
-// Configura busca incremental para departamentos.
-document.getElementById('buscaDepartamento').addEventListener('input', debounce(async (e) => {
-    const termo = e.target.value.trim();
-    const resultadosContainer = document.getElementById('resultadosDepartamentos');
-
-    if (termo.length < 2) {
-        resultadosContainer.style.display = 'none';
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/departamentos/search?nome=${encodeURIComponent(termo)}&size=5`);
-        if (!response.ok) throw new Error('Erro na requisição.');
-
-        const data = await response.json();
-        resultadosContainer.innerHTML = '';
-
-        if (data.content && data.content.length > 0) {
-            data.content.forEach(depto => {
-                const div = document.createElement('div');
-                div.className = 'result-item';
-                div.dataset.id = depto.id;
-                div.innerHTML = `${depto.nome}`;
-
-                div.addEventListener('click', () => {
-                    departamentoSelecionado = depto;
-                    atualizarDepartamentoSelecionado();
-                    e.target.value = '';
-                    resultadosContainer.style.display = 'none';
-                });
-
-                resultadosContainer.appendChild(div);
-            });
-            resultadosContainer.style.display = 'block';
-        } else {
-            resultadosContainer.innerHTML = '<div class="result-item">Nenhum departamento encontrado.</div>';
-            resultadosContainer.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Erro ao buscar departamentos:', error);
-        resultadosContainer.innerHTML = '<div class="result-item text-danger">Erro ao buscar departamentos.</div>';
-        resultadosContainer.style.display = 'block';
-    }
-}, 300));
-
-// Atualiza o departamento selecionado na UI.
-function atualizarDepartamentoSelecionado() {
-    const container = document.getElementById('departamentoSelecionado');
-    container.innerHTML = '';
-
-    if (departamentoSelecionado) {
-        const div = document.createElement('div');
-        div.className = 'selected-item';
-        div.innerHTML = `
-            ${departamentoSelecionado.nome}
-            <button class="remove-btn" data-id="${departamentoSelecionado.id}">&times;</button>
-        `;
-
-        div.querySelector('.remove-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            departamentoSelecionado = null;
-            atualizarDepartamentoSelecionado();
-            document.getElementById('inputDepartamentoId').value = '';
-        });
-
-        container.appendChild(div);
-        document.getElementById('inputDepartamentoId').value = departamentoSelecionado.id;
-    }
-}
-
-// Fecha os resultados ao clicar fora.
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-container')) {
-        document.getElementById('resultadosDepartamentos').style.display = 'none';
-    }
-});
-
-// Função para enviar o formulário.
-function enviarFormulario() {
-    const id = document.getElementById('funcionarioId').value;
-    const form = document.getElementById('funcionarioForm');
-    const formData = new FormData(form);
-
-    // Validação do departamento.
-    const departamentoId = document.getElementById('inputDepartamentoId').value;
-    if (!departamentoId) {
-        mostrarToast('Selecione um departamento.', 'danger');
-        return;
-    }
-
-    const funcionario = {
-        nome: formData.get('nome'),
-        fotoUrl: "https://img.com/default.jpg", // Valor padrão ou pode pegar de um campo.
-        cpf: formData.get('cpf'),
-        descricao: formData.get('descricao'),
-        email: formData.get('email'),
-        cargo: formData.get('cargo'),
-        telefone: formData.get('telefone'),
-        statusFuncionario: formData.get('statusFuncionario'),
-        departamentoId: parseInt(departamentoId),
-        password: "$2a$10$r8RaL.YIfeXYDVyGDN7ua.OZ/bnmgsgu70qan..9RfcGd40ZUf8la" // Senha padrão ou pode pegar de um campo.
-    };
-
-    const url = id ? `${API_BASE_URL}/funcionarios/${id}` : `${API_BASE_URL}/funcionarios`;
-    const method = id ? 'PUT' : 'POST';
-
-    fetch(url, {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(funcionario)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        mostrarToast(id ? 'Funcionário atualizado com sucesso!' : 'Funcionário cadastrado com sucesso!', 'success');
-
-        // Redireciona para a lista após 2 segundos.
-        setTimeout(() => {
-            window.location.href = '../employee/list.html';
-        }, 2000);
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        mostrarToast('Erro ao salvar funcionário: ' + error.message, 'danger');
-    });
-}
-
-// Funções auxiliares para aplicar máscaras.
-function aplicarMascaraCPF(campo) {
-    campo.value = campo.value
-        .replace(/\D/g, '') // Remove tudo que não é dígito.
-        .replace(/(\d{3})(\d)/, '$1.$2') // Coloca um ponto após os primeiros 3 dígitos.
-        .replace(/(\d{3})(\d)/, '$1.$2') // Coloca um ponto após os próximos 3 dígitos.
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Coloca um hífen antes dos últimos 2 dígitos.
-}
-
-function aplicarMascaraTelefone(campo) {
-    campo.value = campo.value
-        .replace(/\D/g, '') // Remove tudo que não é dígito.
-        .replace(/(\d{2})(\d)/, '($1) $2') // Coloca parênteses em volta dos dois primeiros dígitos.
-        .replace(/(\d{4,5})(\d{4})$/, '$1-$2'); // Coloca um hífen antes dos últimos 4 dígitos.
-}
-
-// Função para mostrar o toast de feedback.
-function mostrarToast(mensagem, tipo = 'success') {
-    const toastLiveExample = document.getElementById('liveToast');
-    const toastBody = toastLiveExample.querySelector('.toast-body');
-    const toastHeader = toastLiveExample.querySelector('.toast-header');
-    toastHeader.className = 'toast-header';
-
-    switch(tipo) {
-        case 'success':
-            toastHeader.classList.add('bg-success', 'text-white');
-            break;
-        case 'danger':
-            toastHeader.classList.add('bg-danger', 'text-white');
-            break;
-        case 'warning':
-            toastHeader.classList.add('bg-warning', 'text-dark');
-            break;
-        default:
-            toastHeader.classList.add('bg-primary', 'text-white');
-    }
-
-    toastBody.textContent = mensagem;
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-    toastBootstrap.show();
-}
-</script>
+</body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
+<script src="../../static/js/api.js"></script> <script src="../../static/js/register-employee.js"></script>
 </body>
 </html>

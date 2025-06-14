@@ -34,10 +34,6 @@ public class Projeto {
     @Enumerated(EnumType.STRING)
     private StatusProjeto statusProjeto;
 
-    @ManyToOne
-    @JoinColumn(name = "equipe_id")
-    private Equipe equipe;
-
     @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefa> tarefas = new ArrayList<>();
 
@@ -45,7 +41,7 @@ public class Projeto {
 
     }
 
-    public Projeto(Long id, String nome, String descricao, Instant dataCriacao, Instant dataInicio, LocalDate dataFimPrevisto, Instant dataFimReal, String meta, NivelRisco risco, StatusProjeto statusProjeto, Equipe equipe, List<Tarefa> tarefas) {
+    public Projeto(Long id, String nome, String descricao, Instant dataCriacao, Instant dataInicio, LocalDate dataFimPrevisto, Instant dataFimReal, String meta, NivelRisco risco, StatusProjeto statusProjeto) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -56,8 +52,6 @@ public class Projeto {
         this.meta = meta;
         this.risco = risco;
         this.statusProjeto = statusProjeto;
-        this.equipe = equipe;
-        this.tarefas = tarefas;
     }
 
     public Long getId() {
@@ -138,23 +132,13 @@ public class Projeto {
 
     public void setStatusProjeto(StatusProjeto statusProjeto) {
         this.statusProjeto = statusProjeto;
-        // Se o status for concluído e ainda não tiver uma data de fim real, preenche com o momento atual
         if (statusProjeto == StatusProjeto.CONCLUIDO && this.dataFimReal == null) {
             this.dataFimReal = Instant.now();
         }
     }
 
-
-    public Equipe getEquipe() {
-        return equipe;
-    }
-
     public List<Tarefa> getTarefas() {
         return tarefas;
-    }
-
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
     }
 
     public void setTarefas(List<Tarefa> tarefas) {

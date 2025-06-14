@@ -20,7 +20,9 @@ public class ProjetoDTO {
     private String meta;
     private NivelRisco risco;
     private StatusProjeto statusProjeto;
-    private Long equipeId;
+    private Instant dataFimReal;
+
+
     private List<TarefaDTO> tarefas = new ArrayList<>();
 
     public ProjetoDTO() {
@@ -37,51 +39,94 @@ public class ProjetoDTO {
         meta = entity.getMeta();
         risco = entity.getRisco();
         statusProjeto = entity.getStatusProjeto();
-        equipeId = entity.getEquipe().getId();
-        entity.getTarefas().forEach(tarefa -> this.tarefas.add(new TarefaDTO(tarefa)));
+        dataFimReal = entity.getDataFimReal();
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public Instant getDataCriacao() {
         return dataCriacao;
+    }
+
+    public void setDataCriacao(Instant dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Instant getDataInicio() {
         return dataInicio;
     }
 
+    public void setDataInicio(Instant dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
     public LocalDate getDataFimPrevisto() {
         return dataFimPrevisto;
+    }
+
+    public void setDataFimPrevisto(LocalDate dataFimPrevisto) {
+        this.dataFimPrevisto = dataFimPrevisto;
     }
 
     public String getMeta() {
         return meta;
     }
 
+    public void setMeta(String meta) {
+        this.meta = meta;
+    }
+
     public NivelRisco getRisco() {
         return risco;
+    }
+
+    public void setRisco(NivelRisco risco) {
+        this.risco = risco;
     }
 
     public StatusProjeto getStatusProjeto() {
         return statusProjeto;
     }
 
-    public Long getEquipeId() {
-        return equipeId;
+    public void setStatusProjeto(StatusProjeto statusProjeto) {
+        this.statusProjeto = statusProjeto;
+    }
+
+    public Instant getDataFimReal() {
+        return dataFimReal;
+    }
+
+    public void setDataFimReal(Instant dataFimReal) {
+        this.dataFimReal = dataFimReal;
     }
 
     public List<TarefaDTO> getTarefas() {
         return tarefas;
+    }
+
+    public void setTarefas(List<TarefaDTO> tarefas) {
+        this.tarefas = tarefas;
     }
 }

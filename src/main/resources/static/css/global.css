@@ -1,0 +1,363 @@
+/* resources/static/css/global.css */
+
+:root {
+    --primary-color: #5041bc;
+    --primary-light: #7a6de0;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --info-color: #17a2b8;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-bg: #f8f9fa;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: #e2e8f0;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    color: #333;
+}
+
+.navbar {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Estilos adicionais para a busca de departamento e itens selecionados */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%; /* Abaixo do input de busca */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    box-shadow: var(--card-shadow);
+    display: none; /* Escondido por padrão, mostrado via JS */
+}
+
+.result-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item:hover {
+    background-color: var(--light-bg);
+}
+
+.selected-items {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.selected-item {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.selected-item .remove-btn {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    line-height: 1;
+    padding: 0;
+}
+
+.selected-item .remove-btn:hover {
+    color: var(--danger-color); /* Uma cor diferente para o hover do botão de remover */
+}
+
+/* Estilo para o container do formulário */
+.form-container {
+    background-color: #ffffff; /* Fundo branco para o formulário */
+    padding: 40px; /* Aumenta o padding interno para mais "ar" */
+    border-radius: 12px; /* Levemente mais arredondado */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra mais destacada */
+    margin-top: 40px; /* Mais espaço do topo */
+    margin-bottom: 40px; /* Mais espaço da parte de baixo */
+    border: 1px solid #e0e0e0; /*
+}
+
+.form-control, .form-select {
+    border-radius: 6px; /* Bordas levemente arredondadas para os campos */
+    border-color: #ced4da;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-light); /* Cor da borda ao focar */
+    box-shadow: 0 0 0 0.25rem rgba(80, 65, 188, 0.25); /* Sombra suave da cor primária */
+    outline: none; /* Remove o outline padrão do navegador */
+}
+
+/* Estilos para o botão de busca/seleção de departamento */
+.search-results {
+    /* ... (manter estilos existentes) ... */
+    border-radius: 0 0 8px 8px; /* Arredonda apenas as bordas inferiores */
+    overflow: hidden; /* Garante que o conteúdo não vaze das bordas arredondadas */
+}
+
+.selected-item {
+    background-color: var(--primary-color); /* Usar a cor primária mais forte */
+    color: white;
+    padding: 6px 12px; /* Mais padding */
+    border-radius: 8px; /* Mais arredondado */
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+    font-weight: 500; /* Levemente mais negrito */
+}
+
+.selected-item .remove-btn:hover {
+    color: #ffdddd; /* Um vermelho mais suave ao passar o mouse */
+}
+
+/* Para o botão de submit, para um efeito mais moderno */
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    padding: 10px 25px; /* Mais padding */
+    font-size: 1.1em; /* Fonte maior */
+    border-radius: 8px; /* Bordas arredondadas */
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Um verde um pouco mais escuro no hover */
+    border-color: #1e7e34;
+    transform: translateY(-2px); /* Efeito de leve levantamento */
+}
+
+.btn-success:active {
+    transform: translateY(0); /* Volta ao normal ao clicar */
+}
+
+/* Ajuste para o toast header, para melhor visualização do ícone */
+.toast-header img {
+    width: 24px; /* Aumenta um pouco o tamanho do ícone */
+    height: 24px;
+    filter: invert(1); /* Inverte as cores do SVG para branco se o fundo for escuro, como em bg-success/danger */
+}
+
+.tarefa-item {
+    background-color: #f8f9fa; /* Um fundo mais claro para os itens aninhados */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra suave para destacar */
+    transition: all 0.3s ease;
+    padding: 20px; /* Padding interno */
+    margin-bottom: 20px; /* Espaço entre as tarefas */
+    border: 1px solid #e9ecef; /* Borda sutil */
+}
+
+.tarefa-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra mais destacada no hover */
+    transform: translateY(-3px); /* Leve levantamento no hover */
+}
+
+.tarefa-item h6 {
+    color: var(--primary-color); /* Título da tarefa com a cor primária */
+    font-weight: 600;
+}
+
+.tarefa-item .btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    padding: 5px 10px; /* Reduz padding para botões pequenos */
+    font-size: 0.9em;
+    border-radius: 5px;
+}
+
+.tarefa-item .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes para o botão de submit do formulário de projeto */
+.btn-submit { /* Classe adicionada para o botão de submit do projeto */
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    padding: 12px 30px; /* Mais padding para o botão principal */
+    font-size: 1.2em; /* Fonte maior */
+    border-radius: 8px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-3px); /* Efeito mais pronunciado */
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+.list-container {
+    background-color: #ffffff;
+    padding: 30px; /* Um pouco menos que o form-container, mas ainda espaçoso */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais suave */
+    margin-top: 30px; /* Espaço do cabeçalho/nav */
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Estilos para a tabela DataTables */
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.25rem rgba(80, 65, 188, 0.25);
+    outline: none;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.dataTables_wrapper .dataTables_length select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.25rem rgba(80, 65, 188, 0.25);
+    outline: none;
+}
+
+/* Estilo para botões de paginação do DataTables */
+.dataTables_wrapper .paginate_button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 0 2px;
+    cursor: pointer;
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.dataTables_wrapper .paginate_button:hover {
+    background-color: #dee2e6;
+    border-color: #c6c6c6;
+}
+
+.dataTables_wrapper .paginate_button.current,
+.dataTables_wrapper .paginate_button.current:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white !important; /* !important para sobrescrever DataTables padrão */
+    box-shadow: var(--card-shadow);
+}
+
+.dataTables_wrapper .paginate_button.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Estilo para a tabela em si */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #e9ecef;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+    color: #495057;
+    background-color: #f8f9fa; /* Levemente cinza para cabeçalho da tabela */
+}
+
+.table tbody tr:hover {
+    background-color: #f2f4f6; /* Efeito de hover nas linhas */
+}
+
+/* Estilo para os botões de ação na tabela */
+.table .editar-funcionario,
+.table .deletar-funcionario {
+    font-size: 1.1em;
+    padding: 5px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.table .editar-funcionario:hover {
+    color: white;
+    background-color: var(--primary-light);
+}
+
+.table .deletar-funcionario:hover {
+    color: white;
+    background-color: var(--danger-color);
+}
