@@ -1,69 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Intralist</title>
+    <title>Intralist | Página Inicial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<style>
-    :root {
-        --primary-color: #5041bc;
-        --primary-light: #7a6de0;
-        --secondary-color: #6c757d;
-        --success-color: #28a745;
-        --info-color: #17a2b8;
-        --warning-color: #ffc107;
-        --danger-color: #dc3545;
-        --light-bg: #f8f9fa;
-        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    body {
-        background-color: #f5f7fa;
-        font-family: 'Segoe UI', 'Roboto', sans-serif;
-        color: #333;
-    }
-
-    .navbar {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        background-color: white;
-    }
-
-    .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color) !important;
-    }
-
-    .avatar {
-        width: 40px;
-        height: 40px;
-        background-color: var(--primary-color);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-    }
-
-
-    .carousel-item img {
-        width: 100%; /* Preencher a largura total */
-        height: auto; /* Manter a proporção */
-        max-height: 400px; /* Definir altura máxima (ajuste conforme necessário) */
-        object-fit: cover; /* Ajustar a imagem para cobrir a área do carrossel */
-    }
-    .icon-purple {
-        color: #5041bc;
-    }
-</style>
+    <link rel="stylesheet" href="../static/css/global.css">
 </head>
+
 <body>
-<div class="container-fluid">
+<header class="main-header"> <div class="container-fluid">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="./index.html" aria-label="Intralist - Página Inicial">Intralist</a>
@@ -83,9 +33,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="./employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
                             <li><a class="dropdown-item" href="./project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -94,16 +41,12 @@
                             <i class="fa-solid fa-list me-1"></i> Listar
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="./employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
+                            <li><a class="dropdown-item" href="./employee/list.html"><i class="fas fa-users me-2"></i>Funcionário</a></li>
                             <li><a class="dropdown-item" href="./project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" aria-label="Dashboard">
+                        <a class="nav-link" href="./dashboard/dashboard.html" aria-label="Dashboard">
                             <i class="fa-solid fa-chart-line me-1"></i> Dashboard
                         </a>
                     </li>
@@ -132,67 +75,72 @@
             </div>
         </div>
     </nav>
+</div>
+</header> <main class="container-fluid">
 
-    <div id="carouselExampleCaptions" class="carousel carousel-dark slide">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../static/img/carrossel/imagem1.jpg" class="d-block w-100" alt="Logo">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="../static/img/carrossel/imagem2.jpg" class="d-block w-100" alt="Logo">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="../static/img/carrossel/imagem3.jpg" class="d-block w-100" alt="Logo">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                </div>
+    <div class="list-container mb-4"> <h3 class="mb-4 text-primary fw-bold text-center">Seu Resumo IntraList</h3> <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+            <div class="summary-card">
+                <i class="fas fa-project-diagram icon"></i>
+                <h3 id="totalProjects">0</h3>
+                <p>Total de Projetos</p>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        <div class="col-md-4 mb-4">
+            <div class="summary-card">
+                <i class="fas fa-hourglass-half icon"></i>
+                <h3 id="projectsInProgress">0</h3>
+                <p>Projetos em Progresso</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="summary-card">
+                <i class="fas fa-award icon"></i>
+                <h3 id="completedProjects">0</h3>
+                <p>Projetos Concluídos</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="summary-card">
+                <i class="fas fa-tasks icon"></i>
+                <h3 id="totalTasks">0</h3>
+                <p>Total de Tarefas</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="summary-card">
+                <i class="fas fa-hourglass-half icon"></i>
+                <h3 id="tasksInProgress">0</h3>
+                <p>Tarefas em Progresso</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="summary-card">
+                <i class="fas fa-award icon"></i>
+                <h4 id="completedTasks">0</h4>
+                <p>Tarefas Concluídas</p>
+            </div>
+        </div>
+    </div>
     </div>
 
-    <footer class="bg-body-tertiary mt-4 py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>&copy; 2025 Intralist. Todos os direitos reservados.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a href="#" class="text-reset">Termos de Serviço</a> |
-                    <a href="#" class="text-reset">Política de Privacidade</a>
-                </div>
+</main>
+
+<footer class="bg-dark text-white mt-4 py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2025 Intralist. Todos os direitos reservados.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="#" class="text-reset">Termos de Serviço</a> |
+                <a href="#" class="text-reset">Política de Privacidade</a>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../static/js/api.js"></script>
+<script src="../static/js/index.js"></script>
 </html>

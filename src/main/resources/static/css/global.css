@@ -251,11 +251,11 @@ body {
 }
 .list-container {
     background-color: #ffffff;
-    padding: 30px; /* Um pouco menos que o form-container, mas ainda espaçoso */
+    padding: 20px; /* Um pouco menos que o form-container, mas ainda espaçoso */
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais suave */
-    margin-top: 30px; /* Espaço do cabeçalho/nav */
-    margin-bottom: 30px;
+    margin-top: 20px; /* Espaço do cabeçalho/nav */
+    margin-bottom: 20px;
     border: 1px solid #e0e0e0;
 }
 
@@ -361,3 +361,138 @@ body {
     color: white;
     background-color: var(--danger-color);
 }
+
+.dashboard-summary-section {
+    padding: 40px 0;
+    background-color: #f8f9fa; /* Um fundo levemente diferente para a seção */
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    height: 100%; /* Garante que todos os cards na linha tenham a mesma altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px); /* Efeito de levantar */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra mais forte no hover */
+}
+
+.summary-card .icon {
+    font-size: 3.5rem; /* Ícone grande */
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.summary-card h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 5px;
+}
+
+.summary-card p {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-bottom: 0;
+}
+
+
+/* --- Estilo para o Footer --- */
+footer {
+    background-color: #343a40 !important; /* Fundo mais escuro */
+    color: white;
+    margin-top: auto; /* Empurra o footer para o final da página */
+    padding: 20px 0;
+    width: 100%;
+}
+footer p {
+    margin-bottom: 0;
+}
+footer a {
+    color: #adb5bd !important; /* Cor de link mais clara */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+footer a:hover {
+    color: white !important;
+    text-decoration: underline;
+}
+
+/* Ajustes de responsividade para a página inicial */
+@media (max-width: 768px) {
+    .summary-card {
+        margin-bottom: 20px;
+    }
+    .summary-card .icon {
+        font-size: 2.5rem;
+    }
+    .summary-card h3 {
+        font-size: 1.5rem;
+    }
+    .carousel-item img {
+        max-height: 300px;
+    }
+}
+.main-header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    margin-bottom: 0;
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Ajustes para a navbar dentro do main-header, se necessário */
+.main-header .navbar {
+    box-shadow: none; /* Remove a sombra duplicada da navbar se o main-header já tem */
+    margin-bottom: 0;
+    padding: 0.5rem 0; /* Padding padrão do Bootstrap para navbars */
+}
+
+/* Ajuste a altura do corpo para que o footer fique no final */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #e2e8f0; /* Cor de fundo principal */
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    color: #333;
+}
+
+main {
+    flex-grow: 1
+}
+
+footer {
+    background-color: #343a40; /* Fundo mais escuro para contraste */
+    color: white;
+    margin-top: auto; /* Empurra o footer para o final da página */
+    padding: 20px 0;
+    width: 100%;
+}
+footer p {
+    margin-bottom: 0;
+}
+footer a {
+    color: #adb5bd !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+footer a:hover {
+    color: white !important;
+    text-decoration: underline;
+}
+
