@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Listar Funcionários</title>
+    <title>Intralist | Listar Funcionários</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -34,9 +34,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
                             <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -47,13 +44,10 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
                             <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipes</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" aria-label="Dashboard">
+                        <a class="nav-link" href="../dashboard/dashboard.html" aria-label="Dashboard">
                             <i class="fa-solid fa-chart-line me-1"></i> Dashboard
                         </a>
                     </li>
@@ -83,7 +77,8 @@
         </div>
     </nav>
 
-    <main class="container py-4"> <div class="list-container"> <div class="d-flex justify-content-between align-items-center mb-4">
+    <main class="container py-4"> <div class="list-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h4 mb-0">
             <i class="fas fa-users me-2 text-primary"></i>Lista de Funcionários
         </h1>

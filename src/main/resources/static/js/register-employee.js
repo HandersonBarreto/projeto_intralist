@@ -314,55 +314,49 @@ function aplicarMascaraTelefone(campo) {
 function mostrarToast(mensagem, tipo = 'success') {
     const toastLiveExample = document.getElementById('liveToast');
     if (!toastLiveExample) {
-        console.error("Elemento Toast não encontrado!");
-        alert(mensagem); // Fallback para alerta se o toast não existir
+        console.error("Elemento Toast com ID 'liveToast' não encontrado no DOM! Verifique o HTML.");
+        alert(`Feedback: ${mensagem}`); // Fallback para alerta
         return;
     }
 
     const toastBody = toastLiveExample.querySelector('.toast-body');
     const toastHeader = toastLiveExample.querySelector('.toast-header');
+    const toastImg = toastLiveExample.querySelector('.toast-header img'); // Pode ser null se não houver img no header
 
-    // Resetar classes do cabeçalho antes de adicionar novas
-    toastHeader.className = 'toast-header';
-
-    // Adicionar a cor de fundo com base no tipo
-    switch(tipo) {
-        case 'success':
-            toastHeader.classList.add('bg-success', 'text-white');
-            break;
-        case 'danger':
-            toastHeader.classList.add('bg-danger', 'text-white');
-            break;
-        case 'warning':
-            toastHeader.classList.add('bg-warning', 'text-dark');
-            break;
-        case 'info': // Adicionei info para caso queira
-            toastHeader.classList.add('bg-info', 'text-white');
-            break;
-        default:
-            toastHeader.classList.add('bg-primary', 'text-white');
+    // Verificações adicionais para garantir que os elementos internos foram encontrados
+    if (!toastBody || !toastHeader) {
+        console.error("Elementos internos essenciais do Toast (body, header) não encontrados. Verifique o HTML.");
+        alert(`Feedback: ${mensagem}`);
+        return;
     }
 
-    // Atualizar o ícone do toast (Você não tinha um ícone dinâmico, adicionei aqui)
-    const toastImg = toastLiveExample.querySelector('.toast-header img');
+    toastHeader.className = 'toast-header'; // Reseta classes
+
+    switch(tipo) {
+        case 'success': toastHeader.classList.add('bg-success', 'text-white'); break;
+        case 'danger': toastHeader.classList.add('bg-danger', 'text-white'); break;
+        case 'warning': toastHeader.classList.add('bg-warning', 'text-dark'); break;
+        case 'info': toastHeader.classList.add('bg-info', 'text-white'); break;
+        default: toastHeader.classList.add('bg-primary', 'text-white');
+    }
+
+    // Apenas tente setar o src da imagem se o elemento 'toastImg' foi encontrado
     if (toastImg) {
         let iconSrc = '';
         if (tipo === 'success') iconSrc = '../../static/img/icons/square-check-solid.svg';
-        else if (tipo === 'danger') iconSrc = '../../static/img/icons/xmark-circle-solid.svg'; // Assumindo que você terá um X
-        else if (tipo === 'warning') iconSrc = '../../static/img/icons/triangle-exclamation-solid.svg'; // Assumindo um triângulo de exclamação
-        else iconSrc = '../../static/img/icons/info-circle-solid.svg'; // Assumindo um ícone de informação
-
+        else if (tipo === 'danger') iconSrc = '../../static/img/icons/xmark-circle-solid.svg';
+        else if (tipo === 'warning') iconSrc = '../../static/img/icons/triangle-exclamation-solid.svg';
+        else iconSrc = '../../static/img/icons/info-circle-solid.svg';
         toastImg.src = iconSrc;
     }
 
     toastBody.textContent = mensagem;
 
-    // Certifique-se de que o Bootstrap JS está carregado para usar Toast
     if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
-        const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample, { delay: 3000 });
         toastBootstrap.show();
     } else {
-        console.error("Bootstrap Toast não está disponível. Verifique a importação do Bootstrap JS.");
-        alert(mensagem); // Fallback caso Bootstrap JS não esteja totalmente carregado
+        console.error("Objeto 'bootstrap' ou 'bootstrap.Toast' não está disponível.");
+        alert(`Feedback: ${mensagem}`);
     }
 }
