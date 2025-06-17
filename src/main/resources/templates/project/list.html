@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Listar Projetos | Intralist</title>
+    <title>Intralist | Listar Projetos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,73 +13,68 @@
 </head>
 <body>
 
-<div class="container-fluid"> <nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="../index.html" aria-label="Intralist - Página Inicial">Intralist</a>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html" aria-label="Intralist - Página Inicial">Intralist</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Alternar navegação">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false" aria-haspopup="true">
-                        <i class="fa-solid fa-plus me-1"></i> Cadastro
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
-                        <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipe</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Analisar uso futuro</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false" aria-current="page" aria-haspopup="true">
-                        <i class="fa-solid fa-list me-1"></i> Listar
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
-                        <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-tasks me-2"></i>Equipes</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-chart-pie me-2"></i>Analisar uso futuro</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" aria-label="Dashboard">
-                        <i class="fa-solid fa-chart-line me-1"></i> Dashboard
-                    </a>
-                </li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" aria-haspopup="true">
+                            <i class="fa-solid fa-plus me-1"></i> Cadastro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
+                            <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" aria-current="page" aria-haspopup="true">
+                            <i class="fa-solid fa-list me-1"></i> Listar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
+                            <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../dashboard/dashboard.html" aria-label="Dashboard">
+                            <i class="fa-solid fa-chart-line me-1"></i> Dashboard
+                        </a>
+                    </li>
+                </ul>
 
-            <div class="d-flex align-items-center ms-auto">
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                        <div class="me-2 d-none d-sm-block text-end">
-                            <span class="small text-muted d-block">Bem-vindo,</span>
-                            <span class="fw-semibold">Nome do Usuário</span>
-                        </div>
-                        <div class="avatar">
-                            <i class="fas fa-user" aria-hidden="true"></i>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Perfil</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></li>
-                    </ul>
+                <div class="d-flex align-items-center ms-auto">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            <div class="me-2 d-none d-sm-block text-end">
+                                <span class="small text-muted d-block">Bem-vindo,</span>
+                                <span class="fw-semibold">Nome do Usuário</span>
+                            </div>
+                            <div class="avatar">
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <main class="container py-4">
         <div class="list-container"> <div class="d-flex justify-content-between align-items-center mb-4">

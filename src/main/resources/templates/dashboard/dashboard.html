@@ -3,204 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IntraList - Dashboard</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: #e9ecef;
-            color: #343a40;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px; /* Reduz a margem inferior para diminuir o espaço */
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-.dashboard-container {
-            flex-grow: 1;
-            max-width: 1200px; /* Reduzi um pouco a largura máxima para se adequar melhor a duas colunas, mas pode ajustar se preferir mais espaço */
-            margin: 10px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: grid;
-            /* NOVA LINHA: No máximo 2 colunas, cada uma com no mínimo 550px */
-            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
-            gap: 20px;
-        }
-
-        .chart-card, .filter-card { /* Aplicar estilo base aos cards */
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 380px; /* Aumenta a altura mínima dos cards para acomodar gráficos maiores */
-        }
-
-        .chart-card h2.chart-title { /* Estilo para o título do gráfico no HTML */
-            margin-top: 0;
-            margin-bottom: 15px; /* Adiciona margem abaixo do título */
-            color: #495057;
-            font-size: 1.5em;
-            text-align: center; /* Centraliza o título dentro do card */
-            width: 100%; /* Garante que o título ocupe a largura do card */
-        }
-
-        .chart-placeholder {
-            width: 100%;
-            height: 300px; /* Altura padrão para os gráficos. Aumentado para 300px.*/
-            margin-top: 0; /* Remove a margem superior, pois o h2 já tem margem inferior */
-        }
-
-        .filter-card {
-            grid-column: 1 / -1; /* Faz o filtro ocupar toda a largura da grid */
-            display: flex;
-            justify-content: center; /* Centraliza o conteúdo horizontalmente */
-            align-items: center; /* Centraliza o conteúdo verticalmente */
-            padding: 15px 20px; /* Ajusta o padding do filtro */
-            min-height: unset; /* Remove a altura mínima do card para o filtro */
-        }
-
-        .filter-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%; /* Permite que o filtro ocupe o espaço disponível no card */
-        }
-
-        .filter-section label {
-            margin-right: 15px; /* Aumenta a margem para separar melhor */
-            font-weight: bold;
-            color: #343a40;
-            font-size: 1.1em; /* Aumenta o tamanho da fonte */
-        }
-
-        .filter-section select {
-            padding: 10px 15px; /* Aumenta o padding do select */
-            border-radius: 6px;
-            border: 1px solid #ced4da;
-            background-color: white;
-            font-size: 1.1em; /* Aumenta o tamanho da fonte */
-            cursor: pointer;
-            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            min-width: 120px; /* Garante uma largura mínima para o select */
-        }
-
-        .filter-section select:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-        }
-
-        /* Ajustes para responsividade */
-        @media (max-width: 1200px) { /* Este media query será atualizado */
-            .dashboard-container {
-                /* Para telas entre ~993px e 1200px, manter 2 colunas */
-                grid-template-columns: repeat(2, 1fr); /* Força 2 colunas de tamanho igual */
-                max-width: 960px; /* Reduzindo para caber bem em telas médias */
-                padding: 15px;
-                margin: 15px;
-            }
-            .chart-placeholder {
-                height: 280px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .dashboard-container {
-                grid-template-columns: 1fr; /* Uma única coluna em telas menores */
-                padding: 15px;
-                margin: 15px;
-            }
-            header h1 {
-                font-size: 2em;
-            }
-            .chart-card, .filter-card {
-                padding: 15px;
-                min-height: unset; /* Permite que a altura se ajuste ao conteúdo em telas pequenas */
-            }
-            .chart-placeholder {
-                height: 250px;
-            }
-            .filter-section {
-                flex-direction: row; /* Mantém em linha, mas centralizado */
-                justify-content: center;
-            }
-            .filter-section label {
-                margin-bottom: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-            .filter-section {
-                flex-direction: column; /* Em colunas para telas muito pequenas */
-                align-items: center;
-            }
-            .filter-section label {
-                margin-right: 0;
-                margin-bottom: 8px;
-            }
-        }
-    </style>
+    <title>Intralist | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/css/global.css">
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
-
 </head>
 <body>
+<header class="main-header"> <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html" aria-label="Intralist - Página Inicial">Intralist</a>
 
-<header>
-    <h1>Dashboard de Gestão de Projetos e Tarefas</h1>
-</header>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" aria-haspopup="true">
+                            <i class="fa-solid fa-plus me-1"></i> Cadastro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../employee/register.html"><i class="fas fa-user me-2"></i>Funcionário</a></li>
+                            <li><a class="dropdown-item" href="../project/register.html"><i class="fas fa-project-diagram me-2"></i>Projeto</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" aria-current="page" aria-haspopup="true">
+                            <i class="fa-solid fa-list me-1"></i> Listar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../employee/list.html"><i class="fas fa-users me-2"></i>Funcionários</a></li>
+                            <li><a class="dropdown-item" href="../project/list.html"><i class="fas fa-project-diagram me-2"></i>Projetos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../dashboard/dashboard.html" aria-label="Dashboard">
+                            <i class="fa-solid fa-chart-line me-1"></i> Dashboard
+                        </a>
+                    </li>
+                </ul>
 
-<div class="dashboard-container">
-    <div class="filter-card"> <div class="filter-section">
-        <label for="selectYear">Selecione o Ano:</label>
-        <select id="selectYear"></select>
-    </div>
-    </div>
-
-    <div class="chart-card">
-        <h2 class="chart-title">Projetos por Status</h2> <div id="projectsByStatusChart" class="chart-placeholder"></div>
-    </div>
-
-    <div class="chart-card">
-        <h2 class="chart-title">Tarefas por Status</h2> <div id="tasksByStatusChart" class="chart-placeholder"></div>
-    </div>
-
-    <div class="chart-card">
-        <h2 class="chart-title">Projetos por Status por Mês</h2> <div id="projectsByStatusAndMonthChart" class="chart-placeholder"></div>
-    </div>
-
-    <div class="chart-card">
-        <h2 class="chart-title">Tarefas por Status por Mês</h2> <div id="tasksByStatusAndMonthChart" class="chart-placeholder"></div>
-    </div>
-
+                <div class="d-flex align-items-center ms-auto">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            <div class="me-2 d-none d-sm-block text-end">
+                                <span class="small text-muted d-block">Bem-vindo,</span>
+                                <span class="fw-semibold">Nome do Usuário</span>
+                            </div>
+                            <div class="avatar">
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i> Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 </div>
+</header>
+<main class="container py-4">
+        <div class="list-container"> <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h4 mb-0">
+                <i class="fas fa-chart-line me-2 text-primary"></i>Dashboard de Gestão de Projetos e Tarefas
+            </h1>
+        </div>
 
+    <div class="dashboard-container"> <div class="filter-card">
+        <div class="filter-section">
+            <label for="selectYear">Selecione o Ano:</label>
+            <select id="selectYear"></select>
+        </div>
+    </div>
+
+        <div class="chart-card">
+            <h2 class="chart-title">Projetos por Status</h2>
+            <div id="projectsByStatusChart" class="chart-placeholder"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2 class="chart-title">Tarefas por Status</h2>
+            <div id="tasksByStatusChart" class="chart-placeholder"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2 class="chart-title">Projetos por Status por Mês</h2>
+            <div id="projectsByStatusAndMonthChart" class="chart-placeholder"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2 class="chart-title">Tarefas por Status por Mês</h2>
+            <div id="tasksByStatusAndMonthChart" class="chart-placeholder"></div>
+        </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/api.js"></script>
 <script src="../../static/js/dashboard.js"></script>
 </body>
 </html>
