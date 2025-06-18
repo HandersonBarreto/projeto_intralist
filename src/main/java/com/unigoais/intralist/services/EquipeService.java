@@ -2,10 +2,8 @@ package com.unigoais.intralist.services;
 
 import com.unigoais.intralist.dto.EquipeDTO;
 import com.unigoais.intralist.dto.FuncionarioDTO;
-import com.unigoais.intralist.dto.ProjetoDTO;
 import com.unigoais.intralist.entities.Equipe;
 import com.unigoais.intralist.entities.Funcionario;
-import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.repositories.EquipeRepository;
 import com.unigoais.intralist.repositories.FuncionarioRepository;
 import com.unigoais.intralist.repositories.ProjetoRepository;

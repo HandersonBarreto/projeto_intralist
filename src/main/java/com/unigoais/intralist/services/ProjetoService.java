@@ -6,6 +6,7 @@ import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.entities.StatusProjeto;
 import com.unigoais.intralist.entities.Tarefa;
 import com.unigoais.intralist.repositories.ProjetoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,15 +63,18 @@ public class ProjetoService {
     @Transactional
     public ProjetoDTO insert(ProjetoDTO dto) {
         Projeto entity = new Projeto();
-        copyDtoTOEntity(dto, entity);
+        copyDtoForInsert(dto, entity);
         entity = repository.save(entity);
         return new ProjetoDTO(entity);
     }
 
     @Transactional
     public ProjetoDTO update(Long id, ProjetoDTO dto) {
-        Projeto entity = repository.getReferenceById(id);
-        copyDtoTOEntity(dto, entity);
+        Projeto entity = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Projeto com ID " + id + " não encontrado para atualização."));
+
+        copyDtoForUpdate(dto, entity);
+
         entity = repository.save(entity);
         return new ProjetoDTO(entity);
     }
@@ -80,7 +84,7 @@ public class ProjetoService {
         repository.deleteById(id);
     }
 
-    private void copyDtoTOEntity(ProjetoDTO dto, Projeto entity) {
+    private void copyDtoForInsert(ProjetoDTO dto, Projeto entity) {
         entity.setNome(dto.getNome());
         entity.setDescricao(dto.getDescricao());
         entity.setDataCriacao(dto.getDataCriacao());
@@ -89,15 +93,9 @@ public class ProjetoService {
         entity.setMeta(dto.getMeta());
         entity.setRisco(dto.getRisco());
         entity.setStatusProjeto(dto.getStatusProjeto());
+        entity.setDataFimReal(dto.getDataFimReal());
 
-        // Limpa as tarefas antigas, se necessário (para update)
-        if (entity.getTarefas() != null) {
-            entity.getTarefas().clear();
-        } else {
-            entity.setTarefas(new ArrayList<>());
-        }
-
-        // Adiciona as tarefas do DTO
+        entity.setTarefas(new ArrayList<>());
         if (dto.getTarefas() != null) {
             for (TarefaDTO tarefaDTO : dto.getTarefas()) {
                 Tarefa tarefa = new Tarefa();
@@ -109,11 +107,23 @@ public class ProjetoService {
                 tarefa.setFimReal(tarefaDTO.getFimReal());
                 tarefa.setDataAtualizacao(tarefaDTO.getDataAtualizacao());
                 tarefa.setStatusTarefa(tarefaDTO.getStatusTarefa());
-                tarefa.setProjeto(entity); // relação inversa
-
+                tarefa.setProjeto(entity);
                 entity.getTarefas().add(tarefa);
             }
         }
     }
 
+    private void copyDtoForUpdate(ProjetoDTO dto, Projeto entity) {
+        entity.setNome(dto.getNome());
+        entity.setDescricao(dto.getDescricao());
+        entity.setDataCriacao(dto.getDataCriacao());
+        entity.setDataInicio(dto.getDataInicio());
+        entity.setDataFimPrevisto(dto.getDataFimPrevisto());
+        entity.setMeta(dto.getMeta());
+        entity.setRisco(dto.getRisco());
+        entity.setStatusProjeto(dto.getStatusProjeto());
+        entity.setDataFimReal(dto.getDataFimReal());
+
+    }
 }
+

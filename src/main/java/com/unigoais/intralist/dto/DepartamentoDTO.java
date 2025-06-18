@@ -1,7 +1,6 @@
 package com.unigoais.intralist.dto;
 
 import com.unigoais.intralist.entities.Departamento;
-import jakarta.persistence.Column;
 
 public class DepartamentoDTO {
     private Long id;

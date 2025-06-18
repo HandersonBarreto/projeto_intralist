@@ -42,12 +42,12 @@ public class ProjetoDTO {
         statusProjeto = entity.getStatusProjeto();
         dataFimReal = entity.getDataFimReal();
 
-        if (entity.getTarefas() != null) { // <--- Sempre verificar para evitar NullPointerException
+        if (entity.getTarefas() != null) {
             this.tarefas = entity.getTarefas().stream()
-                    .map(TarefaDTO::new) // Assumindo TarefaDTO tem um construtor de Tarefa
+                    .map(TarefaDTO::new)
                     .collect(Collectors.toList());
         } else {
-            this.tarefas = new ArrayList<>(); // Garante que a lista não é nula, mesmo se a entidade tiver null
+            this.tarefas = new ArrayList<>();
         }
     }
 

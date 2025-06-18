@@ -1,28 +1,21 @@
-// resources/static/js/index.js
-
-// API_BASE_URL virá do api.js que será carregado antes.
-
 document.addEventListener('DOMContentLoaded', () => {
     fetchSummaryMetrics();
 });
 
 async function fetchSummaryMetrics() {
     try {
-        // Fetch para Projetos por Status
         const projectsByStatusResponse = await fetch(`${API_BASE_URL}/api/dashboard/projects-by-status`);
         const projectsByStatusData = await projectsByStatusResponse.json();
-        console.log("Projetos por Status (Dados Brutos):", projectsByStatusData); // DEBUG
+        console.log("Projetos por Status (Dados Brutos):", projectsByStatusData);
 
-        // Fetch para Tarefas por Status
         const tasksByStatusResponse = await fetch(`${API_BASE_URL}/api/dashboard/tasks-by-status`);
         const tasksByStatusData = await tasksByStatusResponse.json();
-        console.log("Tarefas por Status (Dados Brutos):", tasksByStatusData); // DEBUG
+        console.log("Tarefas por Status (Dados Brutos):", tasksByStatusData);
 
         updateSummaryCards(projectsByStatusData, tasksByStatusData);
 
     } catch (error) {
         console.error('Erro ao buscar métricas do dashboard:', error);
-        // ... (exibição de erro nos cards) ...
     }
 }
 
@@ -33,9 +26,9 @@ function updateSummaryCards(projectsData, tasksData) {
 
     projectsData.forEach(item => {
         totalProjects += item.count;
-        if (item.status === 'EM_ANDAMENTO') { // VERIFIQUE ESTE NOME DO ENUM
+        if (item.status === 'EM_ANDAMENTO') {
             projectsInProgress = item.count;
-        } else if (item.status === 'CONCLUIDO') { // VERIFIQUE ESTE NOME DO ENUM
+        } else if (item.status === 'CONCLUIDO') {
             completedProjects = item.count;
         }
     });
@@ -50,9 +43,9 @@ function updateSummaryCards(projectsData, tasksData) {
 
     tasksData.forEach(item => {
         totalTasks += item.count;
-        if (item.status === 'EM_PROGRESSO') { // VERIFIQUE ESTE NOME DO ENUM (StatusTarefa.EM_PROGRESSO)
+        if (item.status === 'EM_PROGRESSO') {
             tasksInProgress = item.count;
-        } else if (item.status === 'CONCLUIDO') { // VERIFIQUE ESTE NOME DO ENUM
+        } else if (item.status === 'CONCLUIDO') {
             completedTasks = item.count;
         }
     });

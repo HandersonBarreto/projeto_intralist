@@ -1,7 +1,5 @@
 package com.unigoais.intralist.dto;
 
-import com.unigoais.intralist.entities.StatusTarefa;
-
 public class MonthlyStatusMetricDTO {
 
     private Integer month;

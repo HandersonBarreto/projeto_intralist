@@ -1,5 +1,3 @@
-/* resources/static/css/global.css */
-
 :root {
     --primary-color: #5041bc;
     --primary-light: #7a6de0;
@@ -40,7 +38,6 @@ body {
     border-radius: 50%;
 }
 
-/* Estilos adicionais para a busca de departamento e itens selecionados */
 .search-container {
     position: relative;
     width: 100%;
@@ -48,7 +45,7 @@ body {
 
 .search-results {
     position: absolute;
-    top: 100%; /* Abaixo do input de busca */
+    top: 100%;
     left: 0;
     width: 100%;
     background-color: white;
@@ -56,9 +53,9 @@ body {
     border-top: none;
     max-height: 200px;
     overflow-y: auto;
-    z-index: 1000; /* Garante que fique acima de outros elementos */
+    z-index: 1000;
     box-shadow: var(--card-shadow);
-    display: none; /* Escondido por padrão, mostrado via JS */
+    display: none;
 }
 
 .result-item {
@@ -106,105 +103,100 @@ body {
 }
 
 .selected-item .remove-btn:hover {
-    color: var(--danger-color); /* Uma cor diferente para o hover do botão de remover */
+    color: var(--danger-color);
 }
 
-/* Estilo para o container do formulário */
 .form-container {
-    background-color: #ffffff; /* Fundo branco para o formulário */
-    padding: 40px; /* Aumenta o padding interno para mais "ar" */
-    border-radius: 12px; /* Levemente mais arredondado */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra mais destacada */
-    margin-top: 40px; /* Mais espaço do topo */
-    margin-bottom: 40px; /* Mais espaço da parte de baixo */
-    border: 1px solid #e0e0e0; /*
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 1px solid #e0e0e0;
 }
 
 .form-control, .form-select {
-    border-radius: 6px; /* Bordas levemente arredondadas para os campos */
+    border-radius: 6px;
     border-color: #ced4da;
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .form-control:focus, .form-select:focus {
-    border-color: var(--primary-light); /* Cor da borda ao focar */
-    box-shadow: 0 0 0 0.25rem rgba(80, 65, 188, 0.25); /* Sombra suave da cor primária */
-    outline: none; /* Remove o outline padrão do navegador */
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.25rem rgba(80, 65, 188, 0.25);
+    outline: none;
 }
 
-/* Estilos para o botão de busca/seleção de departamento */
 .search-results {
-    /* ... (manter estilos existentes) ... */
-    border-radius: 0 0 8px 8px; /* Arredonda apenas as bordas inferiores */
-    overflow: hidden; /* Garante que o conteúdo não vaze das bordas arredondadas */
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
 }
 
 .selected-item {
-    background-color: var(--primary-color); /* Usar a cor primária mais forte */
+    background-color: var(--primary-color);
     color: white;
-    padding: 6px 12px; /* Mais padding */
-    border-radius: 8px; /* Mais arredondado */
+    padding: 6px 12px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     font-size: 0.95em;
-    font-weight: 500; /* Levemente mais negrito */
+    font-weight: 500;
 }
 
 .selected-item .remove-btn:hover {
-    color: #ffdddd; /* Um vermelho mais suave ao passar o mouse */
+    color: #ffdddd;
 }
 
-/* Para o botão de submit, para um efeito mais moderno */
 .btn-success {
     background-color: var(--success-color);
     border-color: var(--success-color);
-    padding: 10px 25px; /* Mais padding */
-    font-size: 1.1em; /* Fonte maior */
-    border-radius: 8px; /* Bordas arredondadas */
+    padding: 10px 25px;
+    font-size: 1.1em;
+    border-radius: 8px;
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn-success:hover {
-    background-color: #218838; /* Um verde um pouco mais escuro no hover */
+    background-color: #218838;
     border-color: #1e7e34;
-    transform: translateY(-2px); /* Efeito de leve levantamento */
+    transform: translateY(-2px);
 }
 
 .btn-success:active {
-    transform: translateY(0); /* Volta ao normal ao clicar */
+    transform: translateY(0);
 }
 
-/* Ajuste para o toast header, para melhor visualização do ícone */
 .toast-header img {
-    width: 24px; /* Aumenta um pouco o tamanho do ícone */
+    width: 24px;
     height: 24px;
-    filter: invert(1); /* Inverte as cores do SVG para branco se o fundo for escuro, como em bg-success/danger */
+    filter: invert(1);
 }
 
 .tarefa-item {
-    background-color: #f8f9fa; /* Um fundo mais claro para os itens aninhados */
+    background-color: #f8f9fa;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra suave para destacar */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    padding: 20px; /* Padding interno */
-    margin-bottom: 20px; /* Espaço entre as tarefas */
-    border: 1px solid #e9ecef; /* Borda sutil */
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
 }
 
 .tarefa-item:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra mais destacada no hover */
-    transform: translateY(-3px); /* Leve levantamento no hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
 }
 
 .tarefa-item h6 {
-    color: var(--primary-color); /* Título da tarefa com a cor primária */
+    color: var(--primary-color);
     font-weight: 600;
 }
 
 .tarefa-item .btn-danger {
     background-color: var(--danger-color);
     border-color: var(--danger-color);
-    padding: 5px 10px; /* Reduz padding para botões pequenos */
+    padding: 5px 10px;
     font-size: 0.9em;
     border-radius: 5px;
 }
@@ -230,12 +222,11 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Ajustes para o botão de submit do formulário de projeto */
-.btn-submit { /* Classe adicionada para o botão de submit do projeto */
+.btn-submit {
     background-color: var(--success-color);
     border-color: var(--success-color);
-    padding: 12px 30px; /* Mais padding para o botão principal */
-    font-size: 1.2em; /* Fonte maior */
+    padding: 12px 30px;
+    font-size: 1.2em;
     border-radius: 8px;
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
 }
@@ -243,7 +234,7 @@ body {
 .btn-submit:hover {
     background-color: #218838;
     border-color: #1e7e34;
-    transform: translateY(-3px); /* Efeito mais pronunciado */
+    transform: translateY(-3px);
 }
 
 .btn-submit:active {
@@ -251,10 +242,10 @@ body {
 }
 .list-container {
     background-color: #ffffff;
-    padding: 20px; /* Um pouco menos que o form-container, mas ainda espaçoso */
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais suave */
-    margin-top: 20px; /* Espaço do cabeçalho/nav */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin-top: 20px;
     margin-bottom: 20px;
     border: 1px solid #e0e0e0;
 }
@@ -336,11 +327,11 @@ body {
     border-bottom: 2px solid #e9ecef;
     font-weight: 600;
     color: #495057;
-    background-color: #f8f9fa; /* Levemente cinza para cabeçalho da tabela */
+    background-color: #f8f9fa;
 }
 
 .table tbody tr:hover {
-    background-color: #f2f4f6; /* Efeito de hover nas linhas */
+    background-color: #f2f4f6;
 }
 
 /* Estilo para os botões de ação na tabela */
@@ -364,7 +355,7 @@ body {
 
 .dashboard-summary-section {
     padding: 40px 0;
-    background-color: #f8f9fa; /* Um fundo levemente diferente para a seção */
+    background-color: #f8f9fa;
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
 }
@@ -373,8 +364,8 @@ body {
     background-color: #ffffff;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave */
-    height: 100%; /* Garante que todos os cards na linha tenham a mesma altura */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -385,12 +376,12 @@ body {
 }
 
 .summary-card:hover {
-    transform: translateY(-5px); /* Efeito de levantar */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra mais forte no hover */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .summary-card .icon {
-    font-size: 3.5rem; /* Ícone grande */
+    font-size: 3.5rem;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
@@ -409,11 +400,11 @@ body {
 }
 
 
-/* --- Estilo para o Footer --- */
+/* Footer */
 footer {
-    background-color: #343a40 !important; /* Fundo mais escuro */
+    background-color: #343a40 !important;
     color: white;
-    margin-top: auto; /* Empurra o footer para o final da página */
+    margin-top: auto;
     padding: 20px 0;
     width: 100%;
 }
@@ -421,7 +412,7 @@ footer p {
     margin-bottom: 0;
 }
 footer a {
-    color: #adb5bd !important; /* Cor de link mais clara */
+    color: #adb5bd !important;
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -455,11 +446,11 @@ footer a:hover {
     z-index: 1000;
 }
 
-/* Ajustes para a navbar dentro do main-header, se necessário */
+/* Ajustes para a navbar dentro do main-header */
 .main-header .navbar {
-    box-shadow: none; /* Remove a sombra duplicada da navbar se o main-header já tem */
+    box-shadow: none;
     margin-bottom: 0;
-    padding: 0.5rem 0; /* Padding padrão do Bootstrap para navbars */
+    padding: 0.5rem 0;
 }
 
 /* Ajuste a altura do corpo para que o footer fique no final */
@@ -467,7 +458,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #e2e8f0; /* Cor de fundo principal */
+    background-color: #e2e8f0;
     font-family: 'Segoe UI', 'Roboto', sans-serif;
     color: #333;
 }
@@ -477,9 +468,9 @@ main {
 }
 
 footer {
-    background-color: #343a40; /* Fundo mais escuro para contraste */
+    background-color: #343a40;
     color: white;
-    margin-top: auto; /* Empurra o footer para o final da página */
+    margin-top: auto;
     padding: 20px 0;
     width: 100%;
 }

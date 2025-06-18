@@ -5,7 +5,6 @@ import com.unigoais.intralist.dto.FuncionarioDTO;
 import com.unigoais.intralist.entities.Departamento;
 import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.entities.Role;
-import com.unigoais.intralist.entities.Tarefa;
 import com.unigoais.intralist.projections.FuncionarioDetailsProjection;
 import com.unigoais.intralist.repositories.DepartamentoRepository;
 import com.unigoais.intralist.repositories.FuncionarioRepository;

@@ -13,13 +13,12 @@ document.addEventListener('DOMContentLoaded', () => { // INÍCIO DO ÚNICO DOMCo
 
     // --- Funções de Fetch e Renderização de Gráficos ---
 
-    // Função para buscar dados e renderizar o gráfico de Projetos por Status (Gráfico de Barras/Pizza)
+    // Função para buscar dados e renderizar o gráfico de Projetos por Status
     async function fetchProjectsByStatus() {
         try {
             const response = await fetch(`${API_BASE_URL}/projects-by-status`);
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
             const data = await response.json();
-            // console.log("Dados de Projetos por Status:", data); // Descomente para verificar no console do navegador
 
             const chartData = data.map(item => ({
                 name: item.status.replace(/_/g, ' '),
@@ -42,13 +41,12 @@ document.addEventListener('DOMContentLoaded', () => { // INÍCIO DO ÚNICO DOMCo
         }
     }
 
-    // Função para buscar dados e renderizar o gráfico de Tarefas por Status (Gráfico de Pizza)
+    // Função para buscar dados e renderizar o gráfico de Tarefas por Status
     async function fetchTasksByStatus() {
         try {
             const response = await fetch(`${API_BASE_URL}/tasks-by-status`);
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
             const data = await response.json();
-            // console.log("Dados de Tarefas por Status:", data);
 
             const chartData = data.map(item => ({
                 name: item.status.replace(/_/g, ' '),
@@ -75,13 +73,12 @@ document.addEventListener('DOMContentLoaded', () => { // INÍCIO DO ÚNICO DOMCo
         }
     }
 
-    // Função para buscar dados e renderizar o gráfico de Projetos por Status por Mês (Gráfico de Linha)
+    // Função para buscar dados e renderizar o gráfico de Projetos por Status por Mês
     async function fetchProjectsByStatusAndMonth(year) {
         try {
             const response = await fetch(`${API_BASE_URL}/projects-by-status-and-month?year=${year}`);
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
             const data = await response.json();
-            // console.log(`Dados de Projetos por Status por Mês (${year}):`, data);
 
             if (data.length === 0) {
                 document.getElementById('projectsByStatusAndMonthChart').innerHTML = `<p style="text-align: center; margin-top: 50px;">Nenhum dado de projeto por status encontrado para o ano ${year}.</p>`;
@@ -120,13 +117,12 @@ document.addEventListener('DOMContentLoaded', () => { // INÍCIO DO ÚNICO DOMCo
         }
     }
 
-    // Função para buscar dados e renderizar o gráfico de Tarefas por Status por Mês (Gráfico de Linha)
+    // Função para buscar dados e renderizar o gráfico de Tarefas por Status por Mês
     async function fetchTasksByStatusAndMonth(year) {
         try {
             const response = await fetch(`${API_BASE_URL}/tasks-by-status-and-month?year=${year}`);
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
             const data = await response.json();
-            // console.log(`Dados de Tarefas por Status por Mês (${year}):`, data);
 
             if (data.length === 0) {
                 document.getElementById('tasksByStatusAndMonthChart').innerHTML = `<p style="text-align: center; margin-top: 50px;">Nenhum dado de tarefa por status encontrado para o ano ${year}.</p>`;
@@ -193,9 +189,9 @@ document.addEventListener('DOMContentLoaded', () => { // INÍCIO DO ÚNICO DOMCo
         fetchTasksByStatusAndMonth(year);
     }
 
-    // --- INÍCIO DA EXECUÇÃO REAL (APENAS ESTE BLOCO CHAMA AS FUNÇÕES) ---
-    populateYearSelect(); // Popula o select de ano
-    const initialYear = parseInt(document.getElementById('selectYear').value); // Obtém o ano inicial selecionado
-    loadAllCharts(initialYear); // Carrega todos os gráficos com o ano inicial
+    // --- INÍCIO DA EXECUÇÃO REAL
+    populateYearSelect();
+    const initialYear = parseInt(document.getElementById('selectYear').value);
+    loadAllCharts(initialYear);
 
-}); // FIM DO ÚNICO DOMContentLoaded GLOBAL
+});

@@ -1,11 +1,7 @@
 package com.unigoais.intralist.services;
 
 import com.unigoais.intralist.dto.DepartamentoDTO;
-import com.unigoais.intralist.dto.EquipeDTO;
-import com.unigoais.intralist.dto.ProjetoDTO;
 import com.unigoais.intralist.entities.Departamento;
-import com.unigoais.intralist.entities.Equipe;
-import com.unigoais.intralist.entities.Projeto;
 import com.unigoais.intralist.repositories.DepartamentoRepository;
 import com.unigoais.intralist.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
