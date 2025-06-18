@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProjetoDTO {
 
@@ -40,6 +41,14 @@ public class ProjetoDTO {
         risco = entity.getRisco();
         statusProjeto = entity.getStatusProjeto();
         dataFimReal = entity.getDataFimReal();
+
+        if (entity.getTarefas() != null) { // <--- Sempre verificar para evitar NullPointerException
+            this.tarefas = entity.getTarefas().stream()
+                    .map(TarefaDTO::new) // Assumindo TarefaDTO tem um construtor de Tarefa
+                    .collect(Collectors.toList());
+        } else {
+            this.tarefas = new ArrayList<>(); // Garante que a lista não é nula, mesmo se a entidade tiver null
+        }
     }
 
     public Long getId() {

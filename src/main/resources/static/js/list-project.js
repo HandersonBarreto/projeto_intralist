@@ -157,9 +157,6 @@ function renderProjetos(projetos) {
                                 <button type="button" class="btn btn-sm btn-info btn-action" onclick="abrirProjeto(${projeto.id})">
                                     <i class="fas fa-eye me-1"></i> Detalhes
                                 </button>
-                                <button type="button" class="btn btn-sm btn-warning btn-action" onclick="editarProjeto(${projeto.id})">
-                                    <i class="fas fa-edit me-1"></i> Editar
-                                </button>
                                 <button type="button" class="btn btn-sm btn-danger btn-action" onclick="deletarProjeto(${projeto.id})">
                                     <i class="fas fa-trash-alt me-1"></i> Excluir
                                 </button>

@@ -1,15 +1,11 @@
 package com.unigoais.intralist.services;
 
-import com.unigoais.intralist.dto.FuncionarioDTO;
 import com.unigoais.intralist.dto.ProjetoDTO;
 import com.unigoais.intralist.dto.TarefaDTO;
-import com.unigoais.intralist.entities.Departamento;
-import com.unigoais.intralist.entities.Funcionario;
 import com.unigoais.intralist.entities.Projeto;
+import com.unigoais.intralist.entities.StatusProjeto;
 import com.unigoais.intralist.entities.Tarefa;
 import com.unigoais.intralist.repositories.ProjetoRepository;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +34,24 @@ public class ProjetoService {
         Page<Projeto> result = repository.findByNomeContainingIgnoreCase(nome, pageable);
         return result.map(ProjetoDTO::new);
     }
+
+    @Transactional(readOnly = true)
+    public Page<ProjetoDTO> findAll(String nome, StatusProjeto statusProjeto, Pageable pageable) {
+        Page<Projeto> result;
+
+        if (nome != null && statusProjeto != null) {
+            result = repository.findByNomeContainingIgnoreCaseAndStatusProjeto(nome, statusProjeto, pageable);
+        } else if (nome != null) {
+            result = repository.findByNomeContainingIgnoreCase(nome, pageable);
+        } else if (statusProjeto != null) {
+            result = repository.findByStatusProjeto(statusProjeto, pageable);
+        } else {
+            result = repository.findAll(pageable);
+        }
+
+        return result.map(ProjetoDTO::new);
+    }
+
 
     @Transactional(readOnly = true)
     public Page<ProjetoDTO> findAll(Pageable pageable) {

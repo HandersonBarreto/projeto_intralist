@@ -1,6 +1,7 @@
 package com.unigoais.intralist.controllers;
 
 import com.unigoais.intralist.dto.ProjetoDTO;
+import com.unigoais.intralist.entities.StatusProjeto;
 import com.unigoais.intralist.services.ProjetoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,17 +26,20 @@ public class ProjetoController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<Page<ProjetoDTO>> search(
-            @RequestParam String nome,
-            Pageable pageable) {
-        Page<ProjetoDTO> result = service.search(nome, pageable);
-        return ResponseEntity.ok(result);
-    }
-
     @GetMapping
-    public ResponseEntity<Page<ProjetoDTO>> findAll(Pageable pageable) {
-        Page<ProjetoDTO> dto = service.findAll(pageable);
+    public ResponseEntity<Page<ProjetoDTO>> findAll(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) StatusProjeto statusProjeto,
+            Pageable pageable) {
+
+        Page<ProjetoDTO> dto;
+
+        if (nome == null && statusProjeto == null) {
+            dto = service.findAll(pageable);
+        } else {
+            dto = service.findAll(nome, statusProjeto, pageable);
+        }
+
         return ResponseEntity.ok(dto);
     }
 

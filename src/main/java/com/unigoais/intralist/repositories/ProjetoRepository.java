@@ -3,6 +3,7 @@ package com.unigoais.intralist.repositories;
 import com.unigoais.intralist.dto.MonthlyStatusMetricDTO;
 import com.unigoais.intralist.dto.ProjectStatusMetricDTO;
 import com.unigoais.intralist.entities.Projeto;
+import com.unigoais.intralist.entities.StatusProjeto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,11 @@ import java.util.List;
 public interface ProjetoRepository extends JpaRepository<Projeto, Long> {
 
     Page<Projeto> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+
+    Page<Projeto> findByStatusProjeto(StatusProjeto statusProjeto, Pageable pageable);
+
+    Page<Projeto> findByNomeContainingIgnoreCaseAndStatusProjeto(String nome, StatusProjeto statusProjeto, Pageable pageable);
+
 
     @Query("SELECT p FROM Projeto p WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%',:nome,'%'))")
     Page<Projeto> searchByName(@Param("nome") String nome, Pageable pageable);
